@@ -1,0 +1,5 @@
+泸州老窖股份有限公司 
+djjg= maent.entbigtype=11 maent.pripid=5105000000013119 method=qyInfo random=1464846846306
+
+西北橡胶总厂二0三分厂
+djjg= maent.entbigtype=13 maent.pripid=6104001220282 method=qyInfo random=1465169276066
