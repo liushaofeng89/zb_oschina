@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:c="http://www.springframework.org/schema/c" xmlns:cache="http://www.springframework.org/schema/cache"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:jdbc="http://www.springframework.org/schema/jdbc" xmlns:jee="http://www.springframework.org/schema/jee"
+	xmlns:lang="http://www.springframework.org/schema/lang" xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:p="http://www.springframework.org/schema/p" xmlns:task="http://www.springframework.org/schema/task"
+	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+	http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd
+	http://www.springframework.org/schema/cache http://www.springframework.org/schema/cache/spring-cache.xsd
+	http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+	http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc.xsd
+	http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee.xsd
+	http://www.springframework.org/schema/lang http://www.springframework.org/schema/lang/spring-lang.xsd
+	http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd
+	http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task.xsd
+	http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd
+	http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
+	
+	<!--报销-->
+	<bean id="projectBid" class="org.springframework.web.servlet.view.jasperreports.JasperReportsMultiFormatView">
+		<property name="url" value="/WEB-INF/reports/projectBid.jasper" />
+		<property name="jdbcDataSource" ref="dataSource" />
+	</bean>
+	
+	<!--批量报销-->
+	<bean id="reimbursement" class="org.springframework.web.servlet.view.jasperreports.JasperReportsMultiFormatView">
+		<property name="url" value="/WEB-INF/reports/reimbursement.jasper" />
+		<property name="jdbcDataSource" ref="dataSource" />
+	</bean>
+	
+	<!--报销-->
+	<bean id="reimbursementBatch" class="org.springframework.web.servlet.view.jasperreports.JasperReportsMultiFormatView">
+		<property name="url" value="/WEB-INF/reports/reimbursementBatch.jasper" />
+		<property name="jdbcDataSource" ref="dataSource" />
+	</bean>
+	
+	<!--投标保证金缴纳-->
+	<bean id="bidBondPay" class="org.springframework.web.servlet.view.jasperreports.JasperReportsMultiFormatView">
+		<property name="url" value="/WEB-INF/reports/bidBondPay.jasper" />
+		<property name="jdbcDataSource" ref="dataSource" />
+	</bean>
+	
+	<!--投标保证金退还-->
+	<bean id="bidBondBack" class="org.springframework.web.servlet.view.jasperreports.JasperReportsMultiFormatView">
+		<property name="url" value="/WEB-INF/reports/bidBondBack.jasper" />
+		<property name="jdbcDataSource" ref="dataSource" />
+	</bean>
+	
+	<!--招投标公司工程款拨付登记表-->
+	<bean id="projectAReg" class="org.springframework.web.servlet.view.jasperreports.JasperReportsMultiFormatView">
+		<property name="url" value="/WEB-INF/reports/pro_ee.jasper" />
+		<property name="jdbcDataSource" ref="dataSource" />
+	</bean>
+	
+	<bean id="carRentalReg" class="org.springframework.web.servlet.view.jasperreports.JasperReportsMultiFormatView">
+		<property name="url" value="/WEB-INF/reports/carRentalReg.jasper" />
+		<property name="jdbcDataSource" ref="dataSource" />
+	</bean>
+	
+	<!--**************************开始**************************-->
+	<!--业务费用支付审批登记-->
+	<bean id="businessCostApprovalRegister" class="org.springframework.web.servlet.view.jasperreports.JasperReportsMultiFormatView">
+		<property name="url" value="/WEB-INF/reports/businessCostApprovalRegister.jasper" />
+		<property name="jdbcDataSource" ref="dataSource" />
+	</bean>
+	<!--员工借款审批登记-->
+	<bean id="loanApprovalRegister" class="org.springframework.web.servlet.view.jasperreports.JasperReportsMultiFormatView">
+		<property name="url" value="/WEB-INF/reports/loan_approval_register.jasper" />
+		<property name="jdbcDataSource" ref="dataSource" />
+	</bean>
+	<!--工资发放登记-->
+	<bean id="payrollRegister" class="org.springframework.web.servlet.view.jasperreports.JasperReportsMultiFormatView">
+		<property name="url" value="/WEB-INF/reports/payroll_register.jasper" />
+		<property name="jdbcDataSource" ref="dataSource" />
+	</bean>
+	<!--绩效提成-->
+	<bean id="scoreCutRegister" class="org.springframework.web.servlet.view.jasperreports.JasperReportsMultiFormatView">
+		<property name="url" value="/WEB-INF/reports/score_cut_register.jasper" />
+		<property name="jdbcDataSource" ref="dataSource" />
+	</bean>
+	<!--项目报名登记-->
+	<bean id="ProjectRegist_baoming" class="org.springframework.web.servlet.view.jasperreports.JasperReportsMultiFormatView">
+		<property name="url" value="/WEB-INF/reports/ProjectRegist_baoming.jasper" />
+		<property name="jdbcDataSource" ref="dataSource" />
+	</bean>
+	<!--项目开标登记-->
+	<bean id="projectregist_kaibiao" class="org.springframework.web.servlet.view.jasperreports.JasperReportsMultiFormatView">
+		<property name="url" value="/WEB-INF/reports/projectregist_kaibiao.jasper" />
+		<property name="jdbcDataSource" ref="dataSource" />
+	</bean>
+	<!--证书管理-->
+	<bean id="tb_certificate" class="org.springframework.web.servlet.view.jasperreports.JasperReportsMultiFormatView">
+		<property name="url" value="/WEB-INF/reports/tb_certificate.jasper" />
+		<property name="jdbcDataSource" ref="dataSource" />
+	</bean>
+	<!--**************************结束**************************-->
+</beans>

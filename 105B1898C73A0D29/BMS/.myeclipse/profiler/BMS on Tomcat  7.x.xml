@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+<entry key="profiler.settings.instrument.empty.methods">true</entry>
+<entry key="ProfilerCPUSettings_version">1.0</entry>
+<entry key="ProfilerCPUSettings_profile_runnables">true</entry>
+<entry key="ProfilerCPUSettings_filter_type">2</entry>
+<entry key="ProfilerMemorySettings_track_every">10</entry>
+<entry key="ProfilerMemorySettings_mode">4</entry>
+<entry key="ProfilerCPUSettings_root_classes">com.wtkj.common.**
+com.wtkj.rms.attachment.controller.**
+com.wtkj.rms.attachment.model.**
+com.wtkj.rms.attachment.service.**
+com.wtkj.rms.bidbond.controller.**
+com.wtkj.rms.bidbond.model.**
+com.wtkj.rms.bidbond.service.**
+com.wtkj.rms.bidbondgzzf.controller.**
+com.wtkj.rms.bidbondgzzf.model.**
+com.wtkj.rms.bidbondgzzf.service.**
+com.wtkj.rms.carRental.controller.**
+com.wtkj.rms.carRental.model.**
+com.wtkj.rms.carRental.service.**
+com.wtkj.rms.code.controller.**
+com.wtkj.rms.code.model.po.**
+com.wtkj.rms.code.model.vo.**
+com.wtkj.rms.code.service.**
+com.wtkj.rms.customer.controller.**
+com.wtkj.rms.customer.model.po.**
+com.wtkj.rms.customer.model.vo.**
+com.wtkj.rms.customer.service.**
+com.wtkj.rms.functional.base.**
+com.wtkj.rms.functional.sys.**
+com.wtkj.rms.functional.test.**
+com.wtkj.rms.goods.controller.**
+com.wtkj.rms.goods.model.**
+com.wtkj.rms.goods.service.**
+com.wtkj.rms.msgcenter.controller.**
+com.wtkj.rms.msgcenter.model.po.**
+com.wtkj.rms.msgcenter.model.vo.**
+com.wtkj.rms.msgcenter.service.**
+com.wtkj.rms.pmcc.soft.controller.**
+com.wtkj.rms.pmcc.soft.model.**
+com.wtkj.rms.pmcc.soft.service.**
+com.wtkj.rms.process.controller.**
+com.wtkj.rms.process.model.**
+com.wtkj.rms.process.service.**
+com.wtkj.rms.project.controller.**
+com.wtkj.rms.project.model.**
+com.wtkj.rms.project.service.**
+com.wtkj.rms.purchase.controller.**
+com.wtkj.rms.purchase.model.po.**
+com.wtkj.rms.purchase.service.**
+com.wtkj.rms.reimbursement.controller.**
+com.wtkj.rms.reimbursement.model.po.**
+com.wtkj.rms.reimbursement.model.vo.**
+com.wtkj.rms.reimbursement.service.**
+com.wtkj.rms.report.controller.**
+com.wtkj.rms.task.controller.**
+com.wtkj.rms.task.model.**
+com.wtkj.rms.task.service.**
+com.wtkj.rms.workspace.model.**
+</entry>
+<entry key="ProfilerCPUSettings_filter_value">com.wtkj.common.*,
+com.wtkj.rms.attachment.controller.*,
+com.wtkj.rms.attachment.model.*,
+com.wtkj.rms.attachment.service.*,
+com.wtkj.rms.bidbond.controller.*,
+com.wtkj.rms.bidbond.model.*,
+com.wtkj.rms.bidbond.service.*,
+com.wtkj.rms.bidbondgzzf.controller.*,
+com.wtkj.rms.bidbondgzzf.model.*,
+com.wtkj.rms.bidbondgzzf.service.*,
+com.wtkj.rms.carRental.controller.*,
+com.wtkj.rms.carRental.model.*,
+com.wtkj.rms.carRental.service.*,
+com.wtkj.rms.code.controller.*,
+com.wtkj.rms.code.model.po.*,
+com.wtkj.rms.code.model.vo.*,
+com.wtkj.rms.code.service.*,
+com.wtkj.rms.customer.controller.*,
+com.wtkj.rms.customer.model.po.*,
+com.wtkj.rms.customer.model.vo.*,
+com.wtkj.rms.customer.service.*,
+com.wtkj.rms.functional.base.*,
+com.wtkj.rms.functional.sys.*,
+com.wtkj.rms.functional.test.*,
+com.wtkj.rms.goods.controller.*,
+com.wtkj.rms.goods.model.*,
+com.wtkj.rms.goods.service.*,
+com.wtkj.rms.msgcenter.controller.*,
+com.wtkj.rms.msgcenter.model.po.*,
+com.wtkj.rms.msgcenter.model.vo.*,
+com.wtkj.rms.msgcenter.service.*,
+com.wtkj.rms.pmcc.soft.controller.*,
+com.wtkj.rms.pmcc.soft.model.*,
+com.wtkj.rms.pmcc.soft.service.*,
+com.wtkj.rms.process.controller.*,
+com.wtkj.rms.process.model.*,
+com.wtkj.rms.process.service.*,
+com.wtkj.rms.project.controller.*,
+com.wtkj.rms.project.model.*,
+com.wtkj.rms.project.service.*,
+com.wtkj.rms.purchase.controller.*,
+com.wtkj.rms.purchase.model.po.*,
+com.wtkj.rms.purchase.service.*,
+com.wtkj.rms.reimbursement.controller.*,
+com.wtkj.rms.reimbursement.model.po.*,
+com.wtkj.rms.reimbursement.model.vo.*,
+com.wtkj.rms.reimbursement.service.*,
+com.wtkj.rms.report.controller.*,
+com.wtkj.rms.task.controller.*,
+com.wtkj.rms.task.model.*,
+com.wtkj.rms.task.service.*,
+com.wtkj.rms.workspace.model.*</entry>
+<entry key="profiler.settings.istrument.getter.setter.methods">true</entry>
+<entry key="ProfilerMemorySettings_stacktraces">-1</entry>
+<entry key="myeclipse.profiling.mode">0</entry>
+</properties>
