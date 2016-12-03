@@ -7,9 +7,7 @@
 <html>
 <head>
 <jsp:include page="../../inc.jsp"></jsp:include>
-<script type="text/javascript"
-	src="${ctx}/jslib/easyui1.3.3/plugins/datagrid-groupview.js"
-	charset="utf-8"></script>
+<script type="text/javascript" src="${ctx}/jslib/easyui1.3.3/plugins/datagrid-groupview.js" charset="utf-8"></script>
 <meta http-equiv="X-UA-Compatible" content="edge" />
 <title>租车登记</title>
 <script type="text/javascript">

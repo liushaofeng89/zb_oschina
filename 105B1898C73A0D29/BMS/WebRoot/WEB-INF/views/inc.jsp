@@ -15,9 +15,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <script src="${ctx}/jslib/jquery-1.7.2.js" type="text/javascript" charset="utf-8"></script>
 
 <!-- 引入EasyUI -->
-<link id="easyuiTheme" rel="stylesheet" href="${ctx}/jslib/easyui1.3.3/themes/<c:out value="${cookie.easyuiThemeName.value}" default="default"/>/easyui.css" type="text/css">
-<script type="text/javascript" src="${ctx}/jslib/easyui1.3.3/jquery.easyui.min.js" charset="utf-8"></script>
-<script type="text/javascript" src="${ctx}/jslib/easyui1.3.3/locale/easyui-lang-zh_CN.js" charset="utf-8"></script>
+<link id="easyuiTheme" rel="stylesheet" href="${ctx}/jslib/jquery-easyui-1.5/themes/<c:out value="${cookie.easyuiThemeName.value}" default="default"/>/easyui.css" type="text/css">
+<script type="text/javascript" src="${ctx}/jslib/jquery-easyui-1.5/jquery.easyui.min.js" charset="utf-8"></script>
+<script type="text/javascript" src="${ctx}/jslib/jquery-easyui-1.5/locale/easyui-lang-zh_CN.js" charset="utf-8"></script>
 
 <!-- 扩展EasyUI -->
 <script type="text/javascript" src="${ctx}/jslib/extEasyUI.js" charset="utf-8"></script>
