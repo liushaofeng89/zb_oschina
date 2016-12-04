@@ -8,23 +8,45 @@
 <head>
 <jsp:include page="../../inc.jsp"></jsp:include>
 <script type="text/javascript" src="${ctx}/jslib/easyui1.3.3/plugins/datagrid-groupview.js" charset="utf-8"></script>
+<script type="text/javascript" src="${ctx}/jslib/leave.js" charset="utf-8"></script>
 <meta http-equiv="X-UA-Compatible" content="edge" />
 <title>请假申请</title>
 </head>
-<body>
-	<div class="easyui-panel" title="请假申请" style="width:100%;max-width:600px;padding:30px 60px;">
-		<form id="ff" method="post" action="add">
+<body class="easyui-layout" data-options="fit:true,border:false">
+	<div data-options="region:'center',fit:true,border:false">
+		<table id="dataGrid" class="easyui-datagrid" data-options="singleSelect:true,method:'get',fit:true,border:false"></table>
+	</div>
+	
+	<div id="toolbar" class="mygrid-toolbar" style="inline: true">
+
+		<a onclick="addLeave();" href="javascript:void(0);"
+			class="easyui-linkbutton"
+			data-options="plain:true,iconCls:'icon_toolbar_add'">请假</a>
+
+		<a onclick="editLeave()" href="javascript:void(0);"
+			class="easyui-linkbutton"
+			data-options="plain:true,iconCls:'icon_toolbar_edit'">编辑</a>
+
+		<a onclick="rmvSelected();" href="javascript:void(0);"
+			class="easyui-linkbutton"
+			data-options="plain:true,iconCls:'icon_toolbar_del'">销假 </a>
+
+	</div>
+	
+	
+	<div id="dlg" class="easyui-dialog" title="请假申请" data-options="iconCls:'icon-save'" style="width:600px;height:400px;padding:10px">
+		<form id="ff" >
 		    <div style="margin-bottom:20px">
-				<input class="easyui-textbox" type="text" name="name" style="width:100%" data-options="label:'姓名:',required:true" />
+				<input class="easyui-textbox" id="userName" type="text" name="userName" style="width:100%" data-options="label:'姓名:',required:true" />
 		    </div>
 		    <div style="margin-bottom:20px">
-				<input class="easyui-datetimebox" name="startTime" style="width:100%;" data-options="label:'开始时间:',required:true">
+				<input class="easyui-datetimebox" id="startTime" name="startTime" style="width:100%;" data-options="label:'开始时间:',required:true">
 		    </div>
 		    <div style="margin-bottom:20px">
-				<input class="easyui-datetimebox" name="endTime" style="width:100%" data-options="label:'结束时间:',required:true" />
+				<input class="easyui-datetimebox" id="endTime" name="endTime" style="width:100%" data-options="label:'结束时间:',required:true" />
 		    </div>
 		    <div style="margin-bottom:20px">
-				<input class="easyui-textbox" name="reason" style="width:100%;height:60px" data-options="label:'请假事由:',multiline:true">
+				<input class="easyui-textbox" id="reason" name="reason" style="width:100%;height:60px" data-options="label:'请假事由:',multiline:true">
 		    </div>
 		</form>
 		<div style="text-align:center;padding:5px 0">
@@ -32,14 +54,5 @@
 			<a href="javascript:void(0)" class="easyui-linkbutton" onclick="clearForm()" style="width:80px">清除</a>
 		</div>
 	</div>
-	<script>
-		function submitForm(){
-			$('#ff').form('submit');
-		}
-		function clearForm(){
-			$('#ff').form('clear');
-		}
-	</script>
-
 </body>
 </html>

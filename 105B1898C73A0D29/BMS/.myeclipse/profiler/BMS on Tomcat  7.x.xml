@@ -34,6 +34,10 @@ com.wtkj.rms.functional.test.**
 com.wtkj.rms.goods.controller.**
 com.wtkj.rms.goods.model.**
 com.wtkj.rms.goods.service.**
+com.wtkj.rms.leave.controller.**
+com.wtkj.rms.leave.model.po.**
+com.wtkj.rms.leave.model.vo.**
+com.wtkj.rms.leave.service.**
 com.wtkj.rms.msgcenter.controller.**
 com.wtkj.rms.msgcenter.model.po.**
 com.wtkj.rms.msgcenter.model.vo.**
@@ -87,6 +91,10 @@ com.wtkj.rms.functional.test.*,
 com.wtkj.rms.goods.controller.*,
 com.wtkj.rms.goods.model.*,
 com.wtkj.rms.goods.service.*,
+com.wtkj.rms.leave.controller.**,
+com.wtkj.rms.leave.model.po.**,
+com.wtkj.rms.leave.model.vo.**,
+com.wtkj.rms.leave.service.**,
 com.wtkj.rms.msgcenter.controller.*,
 com.wtkj.rms.msgcenter.model.po.*,
 com.wtkj.rms.msgcenter.model.vo.*,
