@@ -171,6 +171,14 @@ h2 {
 	background: url('images/toolbar/del.png') no-repeat center center;
 }
 
+.icon_toolbar_ok {
+	background: url('images/toolbar/ok.png') no-repeat center center;
+}
+
+.icon_toolbar_save {
+	background: url('images/toolbar/filesave.png') no-repeat center center;
+}
+
 .icon_toolbar_del_disabled {
 	background: url('images/toolbar/del_disabled.png') no-repeat center
 		center;

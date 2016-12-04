@@ -9,7 +9,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.wtkj.common.GlobalConstant;
 import com.wtkj.common.Json;
+import com.wtkj.common.SessionInfo;
 import com.wtkj.common.controller.BaseController;
 import com.wtkj.rms.leave.model.po.LeaveInfoPO;
 import com.wtkj.rms.leave.model.vo.LeaveInfoVO;
@@ -55,6 +57,50 @@ public class LeaverController extends BaseController {
 		} catch (Exception e) {
 			j.setMsg(e.getMessage());
 		}
+		return j;
+	}
+
+	/**
+	 * 通过ID批准请假
+	 * @param ids 待批准的请假单
+	 * @param request HttpServletRequest
+	 * @return 批准请假成功与否
+	 */
+	@RequestMapping("/approveByIds")
+	@ResponseBody
+	public Json approveByIds(String ids, HttpServletRequest request) {
+		Json j = new Json();
+		String[] idList = getIds(ids);
+		for (String string : idList) {
+			leaveService.approveById(string, getCurrentUser(request));
+		}
+		j.setSuccess(true);
+		j.setMsg("更新数据库成功！");
+		return j;
+	}
+
+	private String getCurrentUser(HttpServletRequest request) {
+		SessionInfo sessionInfo = (SessionInfo) request.getSession()
+				.getAttribute(GlobalConstant.SESSION_INFO);
+		return sessionInfo.getName();
+	}
+
+	/**
+	 * 财务确认请假
+	 * @param ids 待核对的请假单
+	 * @param request HttpServletRequest
+	 * @return 确认请假成功与否
+	 */
+	@RequestMapping("/check")
+	@ResponseBody
+	public Json check(String ids, HttpServletRequest request) {
+		Json j = new Json();
+		String[] idList = getIds(ids);
+		for (String string : idList) {
+			leaveService.checkById(string, getCurrentUser(request));
+		}
+		j.setSuccess(true);
+		j.setMsg("更新数据库成功！");
 		return j;
 	}
 

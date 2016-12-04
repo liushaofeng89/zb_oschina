@@ -1,7 +1,5 @@
 package com.wtkj.rms.leave.model.vo;
 
-import com.sun.istack.internal.Nullable;
-
 /**
  * 请假数据模型
  * 
@@ -18,13 +16,20 @@ public class LeaveInfoVO implements java.io.Serializable {
 	private String startTime;
 	// 请假开始结束
 	private String endTime;
-	// 请假开始原因
-	private String reason;
+	// 请假类型：1表示事假，2表示病假，3表示婚嫁，4表示产假，5表示丧假'
+	private int leaveType;
+	// 规定时间
+	private String limitTime;
+	// 批准人
+	private String approver;
+	// 批准时间
+	private String approveTime;
+	// 财务确认
+	private String financer;
 	// 创建时间
-	@Nullable
 	private String createTime;
 	// 是否已经删除
-	private boolean deleted = false;
+	private boolean deleted;
 
 	public LeaveInfoVO() {
 
@@ -54,6 +59,14 @@ public class LeaveInfoVO implements java.io.Serializable {
 		this.startTime = startTime;
 	}
 
+	public int getLeaveType() {
+		return leaveType;
+	}
+
+	public void setLeaveType(int leaveType) {
+		this.leaveType = leaveType;
+	}
+
 	public String getEndTime() {
 		return endTime;
 	}
@@ -62,12 +75,36 @@ public class LeaveInfoVO implements java.io.Serializable {
 		this.endTime = endTime;
 	}
 
-	public String getReason() {
-		return reason;
+	public String getLimitTime() {
+		return limitTime;
 	}
 
-	public void setReason(String reason) {
-		this.reason = reason;
+	public void setLimitTime(String limitTime) {
+		this.limitTime = limitTime;
+	}
+
+	public String getApprover() {
+		return approver;
+	}
+
+	public void setApprover(String approver) {
+		this.approver = approver;
+	}
+
+	public String getApproveTime() {
+		return approveTime;
+	}
+
+	public void setApproveTime(String approveTime) {
+		this.approveTime = approveTime;
+	}
+
+	public String getFinancer() {
+		return financer;
+	}
+
+	public void setFinancer(String financer) {
+		this.financer = financer;
 	}
 
 	public String getCreateTime() {

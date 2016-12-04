@@ -41,8 +41,16 @@ public class LeaveInfoPO {
 	private Date startTime;
 	// 请假开始结束
 	private Date endTime;
-	// 请假开始原因
-	private String reason;
+	// 请假类型：1表示事假，2表示病假，3表示婚嫁，4表示产假，5表示丧假'
+	private int leaveType;
+	// 规定时间
+	private Date limitTime;
+	// 批准人
+	private String approver;
+	// 批准时间
+	private Date approveTime;
+	// 财务确认
+	private String financer;
 	// 创建时间
 	private Date createTime = Calendar.getInstance().getTime();
 	// 是否已经删除
@@ -57,7 +65,9 @@ public class LeaveInfoPO {
 
 	/**
 	 * VO to PO
-	 * @param info VO model
+	 * 
+	 * @param info
+	 *            VO model
 	 * @throws ParseException
 	 */
 	public LeaveInfoPO(LeaveInfoVO info) throws ParseException {
@@ -68,8 +78,8 @@ public class LeaveInfoPO {
 		this.userName = info.getUserName();
 		this.startTime = sdf.parse(info.getStartTime());
 		this.endTime = sdf.parse(info.getEndTime());
-		this.reason = info.getReason();
-		this.deleted = info.isDeleted();
+		this.leaveType = info.getLeaveType();
+		this.limitTime = sdf.parse(info.getLimitTime());
 		if (!info.getCreateTime().trim().isEmpty()) {
 			this.createTime = sdf.parse(info.getCreateTime());
 		}
@@ -105,7 +115,7 @@ public class LeaveInfoPO {
 		this.startTime = startTime;
 	}
 
-	@Column(name = "ent_time")
+	@Column(name = "end_time")
 	public Date getEndTime() {
 		return endTime;
 	}
@@ -114,13 +124,49 @@ public class LeaveInfoPO {
 		this.endTime = endTime;
 	}
 
-	@Column(name = "leave_reason")
-	public String getReason() {
-		return reason;
+	@Column(name = "leave_type")
+	public int getLeaveType() {
+		return leaveType;
 	}
 
-	public void setReason(String reason) {
-		this.reason = reason;
+	public void setLeaveType(int leaveType) {
+		this.leaveType = leaveType;
+	}
+
+	@Column(name = "limit_time")
+	public Date getLimitTime() {
+		return limitTime;
+	}
+
+	public void setLimitTime(Date limitTime) {
+		this.limitTime = limitTime;
+	}
+
+	@Column(name = "approver")
+	public String getApprover() {
+		return approver;
+	}
+
+	public void setApprover(String approver) {
+		this.approver = approver;
+	}
+
+	@Column(name = "approve_time")
+	public Date getApproveTime() {
+		return approveTime;
+	}
+
+	public void setApproveTime(Date approveTime) {
+		this.approveTime = approveTime;
+	}
+
+	@Column(name = "financer")
+	public String getFinancer() {
+		return financer;
+	}
+
+	public void setFinancer(String financer) {
+		this.financer = financer;
 	}
 
 	@Column(name = "create_time")

@@ -43,4 +43,18 @@ public class LeaveServiceImpl implements LeaveService {
 		return 1 == executeSql ? true : false;
 	}
 
+	@Override
+	public void approveById(String id, String currentUser) {
+		leaveDao.executeSql("update leave_info l set l.approver = '"
+				+ currentUser + "',approve_time = now() where l.id = '" + id
+				+ "'");
+	}
+
+	@Override
+	public void checkById(String id, String currentUser) {
+		leaveDao.executeSql("update leave_info l set l.financer = '"
+				+ currentUser + "' where l.id = '" + id
+				+ "'");
+	}
+
 }

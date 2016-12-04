@@ -2,56 +2,128 @@ var dataGrid;
 
 var id = -1;
 var createTime = "";
-var deleted = "false";
+var limitTime = "";
+var leaveType = -1;
 
+/**
+ * 添加请假
+ */
 function addLeave() {
 	id = -1;
 	createTime = "";
-	deleted = "false";
-	
-	$("#userName").textbox("setValue","");
-	$("#startTime").datetimebox("setValue","");
-	$("#endTime").datetimebox("setValue","");
-	$("#reason").textbox("setValue","");
+	limitTime = "";
+
+	$("#startTime").datetimebox("setValue", "");
+	$("#endTime").datetimebox("setValue", "");
+	$("#limitTime").textbox("setValue", "");
+	$("#leaveType").combobox("setValue", "");
 	$('#dlg').dialog('open');
 }
 
+/**
+ * 修改请假
+ */
 function editLeave() {
 	var row = $('#dataGrid').datagrid('getSelected');
 	if (row) {
 		id = row.id;
 		createTime = row.createTime;
-		deleted = row.deleted;
-		
-		$("#userName").textbox("setValue",row.userName);
-		$("#startTime").datetimebox("setValue",row.startTime);
-		$("#endTime").datetimebox("setValue",row.endTime);
-		$("#reason").textbox("setValue",row.reason);
+		limitTime = row.limitTime;
+
+		$("#userName").textbox("setValue", row.userName);
+		$("#startTime").datetimebox("setValue", row.startTime);
+		$("#endTime").datetimebox("setValue", row.endTime);
+		$("#limitTime").textbox("setValue", row.limitTime);
+		$("#leaveType").combobox("setValue", row.leaveType);
 	}
 	$('#dlg').dialog('open');
 }
 
+/**
+ * 批准人批准
+ */
+function approve(){
+	var ids = [];
+	var rows = $('#dataGrid').datagrid('getSelections');
+	for ( var i = 0; i < rows.length; i++) {
+		ids.push(rows[i].id);
+	}
+	$.messager.confirm("销假提示", "您确定要批准勾选的这些请假吗？", function (data) {
+        if (data) {
+        	$.ajax({
+        		type : "POST",
+        		url : "approveByIds",
+        		data : "ids=" + JSON.stringify(ids),
+        		success : function(result) {
+        			var data = eval('(' + result + ')');
+        			if (data.success) {
+        				$.messager.alert('批准请假成功', data.msg, 'info');
+        				window.location.reload();
+        			} else {
+        				$.messager.alert('批准请假部分成功或失败', data.msg, 'error');
+        			}
+        		}
+        	});
+        }
+    });
+}
+
+/**
+ * 财务核对确认
+ */
+function check() {
+	var ids = [];
+	var rows = $('#dataGrid').datagrid('getSelections');
+	for ( var i = 0; i < rows.length; i++) {
+		ids.push(rows[i].id);
+	}
+	$.messager.confirm("财务确认提示", "您确定这些请假吗？", function (data) {
+        if (data) {
+        	$.ajax({
+        		type : "POST",
+        		url : "check",
+        		data : "ids=" + JSON.stringify(ids),
+        		success : function(result) {
+        			var data = eval('(' + result + ')');
+        			if (data.success) {
+        				$.messager.alert('确认请假成功', data.msg, 'info');
+        				window.location.reload();
+        			} else {
+        				$.messager.alert('确认请假部分成功或失败', data.msg, 'error');
+        			}
+        		}
+        	});
+        }
+    });
+}
+
+/**
+ * 删除请假
+ */
 function rmvSelected() {
 	var ids = [];
 	var rows = $('#dataGrid').datagrid('getSelections');
 	for ( var i = 0; i < rows.length; i++) {
 		ids.push(rows[i].id);
 	}
-	$.ajax({
-		type : "POST",
-		url : "removeByIds",
-		data : "ids=" + JSON.stringify(ids),
-		success : function(result) {
-			var data = eval('(' + result + ')');
-			if (data.success) {
-				$.messager.alert('销假成功', data.msg, 'info');
-				window.location.reload();
-			} else {
-				$.messager.alert('销假部分成功或失败', data.msg, 'error');
-
-			}
-		}
-	});
+	$.messager.confirm("销假提示", "您确定要为勾选的用户销假吗？", function (data) {
+        if (data) {
+        	$.ajax({
+        		type : "POST",
+        		url : "removeByIds",
+        		data : "ids=" + JSON.stringify(ids),
+        		success : function(result) {
+        			var data = eval('(' + result + ')');
+        			if (data.success) {
+        				$.messager.alert('销假成功', data.msg, 'info');
+        				window.location.reload();
+        			} else {
+        				$.messager.alert('销假部分成功或失败', data.msg, 'error');
+        			}
+        		}
+        	});
+        }
+    });
 }
 
 function submitForm() {
@@ -60,9 +132,10 @@ function submitForm() {
 		url : "add",
 		data : "userName=" + $("#userName").val() + "&startTime="
 				+ $('#startTime').datebox('getValue') + "&endTime="
-				+ $('#endTime').datebox('getValue') + "&reason="
-				+ $("#reason").val() + "&id=" + id + "&createTime=" + createTime
-				+ "&deleted=" + deleted,
+				+ $('#endTime').datebox('getValue') + "&limitTime="
+				+ $("#limitTime").datebox('getValue') + "&id=" + id
+				+ "&createTime=" + createTime + "&leaveType="
+				+ $("#leaveType").combobox("getValue"),
 		success : function(result) {
 			var data = eval('(' + result + ')');
 			if (data.success) {
@@ -117,11 +190,46 @@ $(document).ready(function() {
 			align : 'center',
 			field : 'endTime'
 		}, {
-			width : '200',
-			title : '请假原因',
-			sortable : true,
+			width : '130',
+			title : '请假类型',
 			align : 'center',
-			field : 'reason',
+			field : 'leaveType',
+			formatter : function(value, row, index) {
+				if (value != null) {
+					switch (value) {
+					case 1:
+						return '事假';
+					case 2:
+						return '病假';
+					case 3:
+						return '婚假';
+					case 4:
+						return '产假';
+					case 5:
+						return '丧假';
+					}
+				}
+			}
+		}, {
+			width : '130',
+			title : '规定时间',
+			align : 'center',
+			field : 'limitTime'
+		}, {
+			width : '130',
+			title : '批准人',
+			align : 'center',
+			field : 'approver'
+		}, {
+			width : '130',
+			title : '批准时间',
+			align : 'center',
+			field : 'approveTime'
+		}, {
+			width : '130',
+			title : '财务确认',
+			align : 'center',
+			field : 'financer'
 		}, {
 			width : '130',
 			title : '创建时间',
@@ -133,4 +241,5 @@ $(document).ready(function() {
 	});
 
 	$('#dlg').dialog('close');
+	$('#check').dialog('close');
 });

@@ -5,7 +5,6 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 
 import com.wtkj.rms.leave.model.po.LeaveInfoPO;
-import com.wtkj.rms.leave.model.vo.LeaveInfoVO;
 
 /**
  * 请假业务接口定义，CRUD相关接口定义
@@ -33,11 +32,32 @@ public interface LeaveService {
 	 */
 	public List<LeaveInfoPO> findAll();
 
-	
 	/**
 	 * 销假
-	 * @param id 待销假的ID
+	 * 
+	 * @param id
+	 *            待销假的ID
 	 * @return 销假是否成功
 	 */
 	public boolean deleteLeaveById(String id);
+
+	/**
+	 * 请假批准通过
+	 * 
+	 * @param id
+	 *            待通过的请假ID
+	 * @param currentUser
+	 *            批准人
+	 */
+	public void approveById(String id, String currentUser);
+
+	/**
+	 * 财务确认通过请假
+	 * 
+	 * @param id
+	 *            待确认通过的请假单ID
+	 * @param currentUser
+	 *            当前用户
+	 */
+	public void checkById(String id, String currentUser);
 }

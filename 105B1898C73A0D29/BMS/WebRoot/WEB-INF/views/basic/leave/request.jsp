@@ -7,7 +7,6 @@
 <html>
 <head>
 <jsp:include page="../../inc.jsp"></jsp:include>
-<script type="text/javascript" src="${ctx}/jslib/easyui1.3.3/plugins/datagrid-groupview.js" charset="utf-8"></script>
 <script type="text/javascript" src="${ctx}/jslib/leave.js" charset="utf-8"></script>
 <meta http-equiv="X-UA-Compatible" content="edge" />
 <title>请假申请</title>
@@ -30,15 +29,22 @@
 		<a onclick="rmvSelected();" href="javascript:void(0);"
 			class="easyui-linkbutton"
 			data-options="plain:true,iconCls:'icon_toolbar_del'">销假 </a>
+			
+		<a onclick="approve();" href="javascript:void(0);"
+			class="easyui-linkbutton"
+			data-options="plain:true,iconCls:'icon_toolbar_ok'">批准 </a>
+			
+		<a onclick="check();" href="javascript:void(0);"
+			class="easyui-linkbutton"
+			data-options="plain:true,iconCls:'icon_toolbar_save'">确认 </a>
 
 	</div>
 	
-	
-	<div id="dlg" class="easyui-dialog" title="请假申请" data-options="iconCls:'icon-save'" style="width:600px;height:400px;padding:10px">
+	<div id="dlg" class="easyui-dialog" title="请假申请" data-options="iconCls:'icon-save'" style="width:600px;height:350px;padding:10px">
 		<form id="ff" >
 		    <div style="margin-bottom:20px">
-				<input class="easyui-textbox" id="userName" type="text" name="userName" style="width:100%" data-options="label:'姓名:',required:true" />
-		    </div>
+				<input class="easyui-textbox" id="userName" name="userName" style="width:100%;" data-options="label:'请假人:',required:true" value="${sessionInfo.name}">
+			</div>
 		    <div style="margin-bottom:20px">
 				<input class="easyui-datetimebox" id="startTime" name="startTime" style="width:100%;" data-options="label:'开始时间:',required:true">
 		    </div>
@@ -46,7 +52,16 @@
 				<input class="easyui-datetimebox" id="endTime" name="endTime" style="width:100%" data-options="label:'结束时间:',required:true" />
 		    </div>
 		    <div style="margin-bottom:20px">
-				<input class="easyui-textbox" id="reason" name="reason" style="width:100%;height:60px" data-options="label:'请假事由:',multiline:true">
+		    	<select class="easyui-combobox" id="leaveType" name="leaveType" style="width:100%;" data-options="label:'请假种类:'">
+					<option value="1">事假</option>
+					<option value="2">病假</option>
+					<option value="3">婚假</option>
+					<option value="4">产假</option>
+					<option value="5">丧假</option>
+		    	</select>
+		    </div>
+		    <div style="margin-bottom:20px">
+				<input class="easyui-datetimebox" id="limitTime" name="limitTime" style="width:100%" data-options="label:'规定时间:'" />
 		    </div>
 		</form>
 		<div style="text-align:center;padding:5px 0">
