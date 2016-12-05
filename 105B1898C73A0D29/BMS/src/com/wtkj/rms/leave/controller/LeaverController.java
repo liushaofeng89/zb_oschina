@@ -1,5 +1,6 @@
 package com.wtkj.rms.leave.controller;
 
+import java.io.UnsupportedEncodingException;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -14,6 +15,7 @@ import com.wtkj.common.Json;
 import com.wtkj.common.SessionInfo;
 import com.wtkj.common.controller.BaseController;
 import com.wtkj.rms.leave.model.po.LeaveInfoPO;
+import com.wtkj.rms.leave.model.vo.LeaveFilterModel;
 import com.wtkj.rms.leave.model.vo.LeaveInfoVO;
 import com.wtkj.rms.leave.service.LeaveService;
 
@@ -62,8 +64,11 @@ public class LeaverController extends BaseController {
 
 	/**
 	 * 通过ID批准请假
-	 * @param ids 待批准的请假单
-	 * @param request HttpServletRequest
+	 * 
+	 * @param ids
+	 *            待批准的请假单
+	 * @param request
+	 *            HttpServletRequest
 	 * @return 批准请假成功与否
 	 */
 	@RequestMapping("/approveByIds")
@@ -87,8 +92,11 @@ public class LeaverController extends BaseController {
 
 	/**
 	 * 财务确认请假
-	 * @param ids 待核对的请假单
-	 * @param request HttpServletRequest
+	 * 
+	 * @param ids
+	 *            待核对的请假单
+	 * @param request
+	 *            HttpServletRequest
 	 * @return 确认请假成功与否
 	 */
 	@RequestMapping("/check")
@@ -127,6 +135,23 @@ public class LeaverController extends BaseController {
 			return ids.substring(1, ids.length() - 1).split(",");
 		}
 		return new String[0];
+	}
+
+	/**
+	 * 过滤请假
+	 * 
+	 * @param model
+	 * @return 过滤后的请假
+	 * @throws UnsupportedEncodingException
+	 */
+	@RequestMapping("/filter")
+	@ResponseBody
+	public List<LeaveInfoPO> filter(LeaveFilterModel model)
+			throws UnsupportedEncodingException {
+		String userName = new String(model.getsName().getBytes("iso-8859-1"),
+				"UTF-8");
+		return leaveService.filter(userName, model.getsStartTime(),
+				model.getsEndTime());
 	}
 
 	/**

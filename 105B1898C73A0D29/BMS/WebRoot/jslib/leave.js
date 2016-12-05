@@ -15,7 +15,7 @@ function addLeave() {
 
 	$("#startTime").datetimebox("setValue", "");
 	$("#endTime").datetimebox("setValue", "");
-	$("#limitTime").textbox("setValue", "");
+	$("#limitTime").datetimebox("setValue", "");
 	$("#leaveType").combobox("setValue", "");
 	$('#dlg').dialog('open');
 }
@@ -33,7 +33,7 @@ function editLeave() {
 		$("#userName").textbox("setValue", row.userName);
 		$("#startTime").datetimebox("setValue", row.startTime);
 		$("#endTime").datetimebox("setValue", row.endTime);
-		$("#limitTime").textbox("setValue", row.limitTime);
+		$("#limitTime").datetimebox("setValue", row.limitTime);
 		$("#leaveType").combobox("setValue", row.leaveType);
 	}
 	$('#dlg').dialog('open');
@@ -153,6 +153,114 @@ function clearForm() {
 	$('#ff').form('clear');
 }
 
+function dosearch(){
+	var sName = $("#sName").val().trim();
+	var sStartTime = $("#sStartTime").datebox('getValue').trim();
+	var sEndTime = $("#sEndTime").datebox('getValue').trim();
+	
+	if(sName==""||sStartTime==""||sEndTime==""){
+		alert("查询条件不能为空！");
+		return;
+	}
+	
+	var param = {
+			sName :sName,
+			sStartTime:sStartTime,
+			sEndTime:sEndTime
+		};
+	
+	$('#dataGrid').datagrid({
+		url : 'filter',
+		queryParams:param,
+		striped : true,
+		pagination : true,
+		nowrap : true,
+		singleSelect : false,
+		pageSize : getDefaultPageSize(),
+		pageList : [ 10, 20, 30, 40, 50, 100, 200, 300, 400, 500 ],
+		columns : [ [ {
+			checkbox : true,
+			field : 'id',
+			width : '30'
+		}, {
+			title : '序号',
+			field : 'index',
+			align : 'center',
+			width : '40',
+			formatter : function(value, row, index) {
+				return index + 1;
+			}
+		}, {
+			width : '100',
+			title : '用户名',
+			align : 'center',
+			field : 'userName'
+		}, {
+			width : '130',
+			title : '开始时间',
+			align : 'center',
+			field : 'startTime'
+		}, {
+			width : '130',
+			title : '结束时间',
+			align : 'center',
+			field : 'endTime'
+		}, {
+			width : '130',
+			title : '请假类型',
+			align : 'center',
+			field : 'leaveType',
+			formatter : function(value, row, index) {
+				if (value != null) {
+					switch (value) {
+					case 1:
+						return '事假';
+					case 2:
+						return '病假';
+					case 3:
+						return '婚假';
+					case 4:
+						return '产假';
+					case 5:
+						return '丧假';
+					}
+				}
+			}
+		}, {
+			width : '130',
+			title : '规定时间',
+			align : 'center',
+			field : 'limitTime'
+		}, {
+			width : '130',
+			title : '批准人',
+			align : 'center',
+			field : 'approver'
+		}, {
+			width : '130',
+			title : '批准时间',
+			align : 'center',
+			field : 'approveTime'
+		}, {
+			width : '130',
+			title : '财务确认',
+			align : 'center',
+			field : 'financer'
+		}, {
+			width : '130',
+			title : '创建时间',
+			sortable : true,
+			align : 'center',
+			field : 'createTime'
+		} ] ],
+		toolbar : '#toolbar'
+	});
+}
+
+function csearch(){
+	$('#sdlg').dialog('open');
+}
+
 $(document).ready(function() {
 	dataGrid = $('#dataGrid').datagrid({
 		url : 'findAll',
@@ -242,4 +350,5 @@ $(document).ready(function() {
 
 	$('#dlg').dialog('close');
 	$('#check').dialog('close');
+	$('#sdlg').dialog('close');
 });

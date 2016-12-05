@@ -53,8 +53,15 @@ public class LeaveServiceImpl implements LeaveService {
 	@Override
 	public void checkById(String id, String currentUser) {
 		leaveDao.executeSql("update leave_info l set l.financer = '"
-				+ currentUser + "' where l.id = '" + id
-				+ "'");
+				+ currentUser + "' where l.id = '" + id + "'");
+	}
+
+	@Override
+	public List<LeaveInfoPO> filter(String userName, String startTime,
+			String endTime) {
+		return leaveDao.find("from LeaveInfoPO l where l.userName = '"
+				+ userName + "' and l.createTime >='" + startTime
+				+ "' and l.createTime<='" + endTime + "'");
 	}
 
 }

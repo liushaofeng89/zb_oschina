@@ -60,4 +60,18 @@ public interface LeaveService {
 	 *            当前用户
 	 */
 	public void checkById(String id, String currentUser);
+
+	/**
+	 * 通过过滤条件查询
+	 * 
+	 * @param userName
+	 *            待过滤的用户名
+	 * @param getsStartTime
+	 *            开始时间
+	 * @param getsEndTime
+	 *            结束时间
+	 * @return 过滤后的请假数据
+	 */
+	public List<LeaveInfoPO> filter(String userName, String getsStartTime,
+			String getsEndTime);
 }

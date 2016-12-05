@@ -37,7 +37,28 @@
 		<a onclick="check();" href="javascript:void(0);"
 			class="easyui-linkbutton"
 			data-options="plain:true,iconCls:'icon_toolbar_save'">确认 </a>
-
+			
+		<a onclick="csearch();" href="javascript:void(0);"
+			class="easyui-linkbutton"
+			data-options="plain:true,iconCls:'icon_toolbar_search'">搜索 </a>
+			
+	</div>
+	
+	<div id="sdlg" class="easyui-dialog" title="请假查询" data-options="iconCls:'icon-save'" style="width:300px;height:250px;padding:10px">
+		<form id="ff" >
+		    <div style="margin-bottom:20px">
+				<input class="easyui-textbox" id="sName" style="width:100%;" data-options="label:'请假人:'">
+			</div>
+		    <div style="margin-bottom:20px">
+				<input class="easyui-datetimebox" id="sStartTime" style="width:100%;" data-options="label:'开始时间:'">
+		    </div>
+		    <div style="margin-bottom:20px">
+				<input class="easyui-datetimebox" id="sEndTime" style="width:100%" data-options="label:'结束时间:'" />
+		    </div>
+		</form>
+		<div style="text-align:center;padding:5px 0">
+			<a href="javascript:void(0)" class="easyui-linkbutton" onclick="dosearch()" style="width:80px">请假查询</a>
+		</div>
 	</div>
 	
 	<div id="dlg" class="easyui-dialog" title="请假申请" data-options="iconCls:'icon-save'" style="width:600px;height:350px;padding:10px">
