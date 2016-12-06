@@ -524,8 +524,7 @@
 		</form>
 	</div>
 	<span style="font-size: 14px; color: blue">联营工程档案清单</span>
-	<div data-options="fit:true,border:false"
-		style="overflow: auto; height: 250px">
+	<div data-options="fit:true,border:false" style="overflow: auto; height: 250px">
 		<table id="dataGrid" data-options="fit:true,border:false"></table>
 	</div>
 

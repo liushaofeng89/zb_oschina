@@ -25,8 +25,11 @@ import com.wtkj.common.utils.NumberUtils;
 import com.wtkj.common.utils.SmsUtil;
 import com.wtkj.rms.project.model.ProjectAppropriateAccountVo;
 import com.wtkj.rms.project.model.ProjectAppropriateReg;
+import com.wtkj.rms.project.model.ProjectArchiesInfoModel;
 import com.wtkj.rms.project.service.ProjectAppropriateAccountServiceI;
 import com.wtkj.rms.project.service.ProjectAppropriateRegServiceI;
+import com.wtkj.rms.project.service.ProjectArchiesInfoService;
+import com.wtkj.rms.project.service.impl.ProjectArchiesInfoServiceImpl;
 
 @Controller
 @RequestMapping("/projectAppropriateAccount")
@@ -37,6 +40,9 @@ public class ProjectAppropriateAccountController extends BaseController {
 
 	@Autowired
 	private ProjectAppropriateRegServiceI projectAppropriateRegService;
+	
+	@Autowired
+	private ProjectArchiesInfoService prjArchiesInfoService;
 
 	@Autowired
 	private UserServiceI userService;
@@ -48,11 +54,8 @@ public class ProjectAppropriateAccountController extends BaseController {
 
 	@RequestMapping("/dataGrid")
 	@ResponseBody
-	public Grid dataGrid(ProjectAppropriateAccountVo vo, PageFilter ph) {
-		Grid grid = new Grid();
-		grid.setRows(projectAppropriateAccountService.dataGrid(vo, ph));
-		grid.setTotal(projectAppropriateAccountService.count(vo, ph));
-		return grid;
+	public List<ProjectArchiesInfoModel> dataGrid(ProjectAppropriateAccountVo vo, PageFilter ph) {
+		return prjArchiesInfoService.findById(String.valueOf(vo.getProjectAppRegId()).trim());
 	}
 
 	@RequestMapping("/viewPage")
