@@ -6,13 +6,20 @@
 <!DOCTYPE html>
 <html>
 <head>
-<link rel="stylesheet" type="text/css" href="${ctx}/jslib/easyui1.3.3/themes/default/easyui.css">
 <jsp:include page="../../inc.jsp"></jsp:include>
 <script type="text/javascript" src="${ctx}/jslib/easyui1.3.3/jquery.easyui.min.js" charset="utf-8"></script>
 <script type="text/javascript" src="${ctx}/jslib/easyui1.3.3/plugins/datagrid-detailview.js" charset="utf-8"></script>
 <script type="text/javascript" src="${ctx}/jslib/easyui1.3.3/plugins/datagrid-statistics.js" charset="utf-8"></script>
 <meta http-equiv="X-UA-Compatible" content="edge" />
 <title>工程档案管理</title>
+<style>
+	.combo-arrow{
+		height: 20px !important;
+	}
+	td{
+		padding: 5px;
+	}
+</style>
 </head>
 <body class="easyui-layout" data-options="fit:true,border:false">
 	<div data-options="region:'center',fit:true,border:false">
@@ -73,6 +80,11 @@
 			</c:otherwise>
 		</c:choose>
 		
+		<a onclick="addArchieves();" href="javascript:void(0);"
+			class="easyui-linkbutton"
+			data-options="plain:true,iconCls:'icon_toolbar_update'">新增档案</a>
+		
+		
 		<a onclick="printFun(0);" href="javascript:void(0);"
 			class="easyui-linkbutton"
 			data-options="plain:true,iconCls:'icon_toolbar_detail'">打印预览</a> <a
@@ -99,6 +111,66 @@
 		</table>
 	</div>
 	
+	<div id="sdlg" class="easyui-dialog" title="项目新增档案" data-options="iconCls:'icon-save'" style="width:400px;height:350px;padding:10px">
+		<form action="addPrjArchieves" method="post" enctype="multipart/form-data">
+			<table>
+				<tr>
+					<td style="text-align: right">项目名称:<input type="hidden" id="prjId" name="prjId"/> </td>
+					<td style="text-align: left" id="prjName"></td>
+				</tr>
+				<tr>
+					<td style="text-align: right">文档类型:</td>
+					<td style="text-align: left">
+						<select class="easyui-combobox" id="archieveType" name="archieveType" >
+							<option value="1">招标文件</option>
+							<option value="2">投标文件</option>
+							<option value="3">中标通知书</option>
+							<option value="4">施工合同</option>
+							<option value="5">施工资料</option>
+							<option value="6">施工照片</option>
+							<option value="7">施工影响</option>
+							<option value="8">拨款资料</option>
+							<option value="9">竣工资料</option>
+							<option value="10">验收资料</option>
+				    	</select>
+					</td>
+				</tr>
+				<tr>
+					<td style="text-align: right">电子版或扫描件:</td>
+					<td style="text-align: left">
+						<input type="file" class="easyui-filebox" id="archieveScanning" name="archieveScanning">
+					</td>
+				</tr>
+				<tr>
+					<td style="text-align: right">原件:</td>
+					<td style="text-align: left">
+						<input type="file" class="easyui-filebox" id="archieveOriginal" name="archieveOriginal">
+					</td>
+				</tr>
+				<tr>
+					<td style="text-align: right">复印件:</td>
+					<td style="text-align: left">
+						<input type="file" class="easyui-filebox" id="archieveCopy" name="archieveCopy">
+					</td>
+				</tr>
+				<tr>
+					<td style="text-align: right">备注:</td>
+					<td style="text-align: left">
+						<textarea id="note" name="note" style="height:60px;width:100%"></textarea>
+					</td>
+				</tr>
+				<tr>
+					<td colspan="2" style="text-align: center;">
+						<button type="submit">确认添加</button>
+					</td>
+				</tr>
+			</table>
+		</form>
+	</div>
+	
+	<script type="text/javascript">
+		 var prjCtx = '${ctx}';
+	</script>
 	<script type="text/javascript" src="${ctx}/jslib/projectArchives.js" charset="utf-8"></script>
 </body>
 </html>

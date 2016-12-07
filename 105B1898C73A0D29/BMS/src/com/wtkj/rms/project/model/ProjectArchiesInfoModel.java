@@ -42,6 +42,22 @@ public class ProjectArchiesInfoModel {
 	// 备注
 	private String archivesNote;
 
+	public ProjectArchiesInfoModel() {
+
+	}
+
+	public ProjectArchiesInfoModel(int prjId, int archivesType, String scanningFilePath, String originalFileNo,
+			String originalFilePath, String copyFileNo, String copyFilePath, String note) {
+		this.prjId = prjId;
+		this.archivesType = archivesType;
+		this.archivesScanningPath = scanningFilePath;
+		this.archivesOriginalNo = originalFileNo;
+		this.archivesOriginalPath = originalFilePath;
+		this.archivesCopyNo = copyFileNo;
+		this.archivesCopyPath = copyFilePath;
+		this.archivesNote = note;
+	}
+
 	@Id
 	@GenericGenerator(name = "generator", strategy = "increment")
 	@GeneratedValue(generator = "generator")

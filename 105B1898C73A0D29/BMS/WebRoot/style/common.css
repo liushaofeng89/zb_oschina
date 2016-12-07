@@ -204,6 +204,9 @@ h2 {
 .icon_toolbar_detail {
 	background: url('images/toolbar/detail.png') no-repeat center center;
 }
+.icon_toolbar_update {
+	background: url('images/toolbar/up_nav.gif') no-repeat center center;
+}
 
 .icon_toolbar_detail_disabled {
 	background: url('images/toolbar/detail_disabled.png') no-repeat center

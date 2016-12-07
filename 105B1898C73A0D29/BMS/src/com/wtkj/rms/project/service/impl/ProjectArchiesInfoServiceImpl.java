@@ -24,7 +24,13 @@ public class ProjectArchiesInfoServiceImpl implements ProjectArchiesInfoService 
 
 	@Override
 	public List<ProjectArchiesInfoModel> findById(String id) {
-		return archievesInfoDao.find("from ProjectArchiesInfoModel p where p.prjId = "+id+" order by p.archivesType asc");
+		return archievesInfoDao.find("from ProjectArchiesInfoModel p where p.prjId = " + id
+				+ " order by p.archivesType asc");
+	}
+
+	@Override
+	public void saveByArchieves(ProjectArchiesInfoModel model) {
+		archievesInfoDao.saveOrUpdate(model);
 	}
 
 }
