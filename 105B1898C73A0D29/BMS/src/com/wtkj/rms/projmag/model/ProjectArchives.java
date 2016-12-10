@@ -9,6 +9,7 @@ import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 
 import com.wtkj.common.model.IdEntity;
+import com.wtkj.rms.project.model.ProjectBid;
 
 /**
  * 工程档案登记
@@ -19,13 +20,12 @@ import com.wtkj.common.model.IdEntity;
 @Table(name = "ProjectArchives", schema = "")
 @DynamicInsert(true)
 @DynamicUpdate(true)
-public class ProjectArchives extends IdEntity implements
-		java.io.Serializable {
+public class ProjectArchives extends IdEntity implements java.io.Serializable {
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	
+
 	private String projectName;// 项目名称
 
 	// 联系人信息，姓名,电话,身份证
@@ -46,9 +46,24 @@ public class ProjectArchives extends IdEntity implements
 
 	private Double contractDuration;// 合同工期(年)
 
-	
-
 	private String remark;
+
+	public ProjectArchives() {
+		// TODO Auto-generated constructor stub
+	}
+
+	public ProjectArchives(ProjectBid prjBid) {
+		this.projectName = prjBid.getProjectName();
+		this.contactName = prjBid.getHeadman();
+		this.contactTel = prjBid.getTel();
+		this.contactIdCard = prjBid.getHeadmanIdCard();
+		
+		this.managerFeeRate = Double.parseDouble(prjBid.getManageFeeRate().toString());
+		this.managerFee = prjBid.getManageFee();
+		this.bidPrice = prjBid.getBid_cost();
+		this.bidDT = prjBid.getDurationEt();
+		this.remark = prjBid.getRemark();
+	}
 
 	public String getPayee() {
 		return payee;
@@ -145,8 +160,6 @@ public class ProjectArchives extends IdEntity implements
 	public void setContractDuration(Double contractDuration) {
 		this.contractDuration = contractDuration;
 	}
-
-	
 
 	public String getRemark() {
 		return remark;

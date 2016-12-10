@@ -1,6 +1,8 @@
 package com.wtkj.rms.leave.controller;
 
 import java.io.UnsupportedEncodingException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -85,8 +87,7 @@ public class LeaverController extends BaseController {
 	}
 
 	private String getCurrentUser(HttpServletRequest request) {
-		SessionInfo sessionInfo = (SessionInfo) request.getSession()
-				.getAttribute(GlobalConstant.SESSION_INFO);
+		SessionInfo sessionInfo = (SessionInfo) request.getSession().getAttribute(GlobalConstant.SESSION_INFO);
 		return sessionInfo.getName();
 	}
 
@@ -101,11 +102,11 @@ public class LeaverController extends BaseController {
 	 */
 	@RequestMapping("/check")
 	@ResponseBody
-	public Json check(String ids, HttpServletRequest request) {
+	public Json check(String ids, String money, HttpServletRequest request) {
 		Json j = new Json();
 		String[] idList = getIds(ids);
 		for (String string : idList) {
-			leaveService.checkById(string, getCurrentUser(request));
+			leaveService.checkById(string, getCurrentUser(request), Float.parseFloat(money));
 		}
 		j.setSuccess(true);
 		j.setMsg("更新数据库成功！");
@@ -146,12 +147,9 @@ public class LeaverController extends BaseController {
 	 */
 	@RequestMapping("/filter")
 	@ResponseBody
-	public List<LeaveInfoPO> filter(LeaveFilterModel model)
-			throws UnsupportedEncodingException {
-		String userName = new String(model.getsName().getBytes("iso-8859-1"),
-				"UTF-8");
-		return leaveService.filter(userName, model.getsStartTime(),
-				model.getsEndTime());
+	public List<LeaveInfoPO> filter(LeaveFilterModel model) throws UnsupportedEncodingException {
+		String userName = new String(model.getsName().getBytes("iso-8859-1"), "UTF-8");
+		return leaveService.filter(userName, model.getsStartTime(), model.getsEndTime());
 	}
 
 	/**

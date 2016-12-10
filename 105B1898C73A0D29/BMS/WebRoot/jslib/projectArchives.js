@@ -211,6 +211,70 @@ $(function() {
 
 });
 
+function selectPrj(){
+	var param = {"filter" :""};
+	doLoad(param);
+	$('#selectPrj').dialog('open');
+}
+
+function loadKeywordsPrj(obj){
+	var param = {"filter" :$(obj).val()};
+	doLoad(param);
+}
+
+function doLoad(param){
+	$("#selectedOne").datagrid({
+		title:'中标项目',
+	    width:650,
+	    height:250,
+	    url:'loadFilteredPrjs',
+	    queryParams : param,
+	    singleSelect : true,
+	    columns:[[
+	        {checkbox : true,	field : 'id',width : '30'},
+	        {field:'projectName',title:'项目名称',width:200},
+	        {field:'bid_cost',title:'中标价(元)',width:60},
+	        {field:'bidDt',title:'中标日期',width:80,align:'right'},
+	        {field:'unitcost',title:'合同工期（天）',width:80,align:'right'},
+	        {field:'manageFeeRate',title:'管理费比例（%）',width:100},
+	        {field:'manageFee',title:'管理费数额（元）',width:60},
+	        {field:'status',title:'户名',width:60},
+	        {field:'status',title:'开户行',width:60},
+	        {field:'status',title:'账号',width:60},
+	        {field:'headman',title:'姓名',width:60},
+	        {field:'tel',title:'电话',width:60},
+	        {field:'headmanIdCard',title:'身份证号',width:60},
+	        {field:'remark',title:'备注',width:60},
+	    ]],
+
+	    toolbar:[{
+	        text:'添加勾选的项目',
+	        iconCls:'icon_toolbar_add',
+	        handler:function(){
+	        	var ids = [];
+	        	var rows = $('#selectedOne').datagrid('getSelected');
+	        	ids.push(rows.id);
+	        	$.ajax({
+            		type : "POST",
+            		url : "selectedPrjs",
+            		data : "ids=" + JSON.stringify(ids),
+            		success : function(result) {
+            			var data = eval('(' + result + ')');
+            			if (data.success) {
+            				$.messager.alert('拉取项目成功！', data.msg, 'info');
+            				$('#selectPrj').dialog('close');
+            				$("#dataGrid").datagrid("reload") 
+            			} else {
+            				$.messager.alert('拉取项目失败！', data.msg, 'error');
+            			}
+            		}
+            	});
+	        }
+	    }]
+
+	});
+}
+
 function searchFun() {
 	var queryParams = $('#dataGrid').datagrid('options').queryParams;
 	queryParams.projectName = "";
@@ -385,4 +449,5 @@ function addArchieves(){
 
 $(document).ready(function(){
 	$('#sdlg').dialog('close');
+	$('#selectPrj').dialog('close');
 });

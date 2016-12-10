@@ -51,6 +51,8 @@ public class LeaveInfoPO {
 	private Date approveTime;
 	// 财务确认
 	private String financer;
+	//请假扣除的薪水
+	private float costMoney;
 	// 创建时间
 	private Date createTime = Calendar.getInstance().getTime();
 	// 是否已经删除
@@ -186,4 +188,15 @@ public class LeaveInfoPO {
 	public void setDeleted(boolean deleted) {
 		this.deleted = deleted;
 	}
+
+	@Column(name = "cost_money")
+	public float getCostMoney() {
+		return costMoney;
+	}
+
+	public void setCostMoney(float costMoney) {
+		this.costMoney = costMoney;
+	}
+
+	
 }

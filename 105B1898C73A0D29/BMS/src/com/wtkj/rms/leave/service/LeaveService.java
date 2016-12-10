@@ -59,7 +59,7 @@ public interface LeaveService {
 	 * @param currentUser
 	 *            当前用户
 	 */
-	public void checkById(String id, String currentUser);
+	public void checkById(String id, String currentUser,float money);
 
 	/**
 	 * 通过过滤条件查询

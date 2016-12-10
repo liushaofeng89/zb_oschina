@@ -16,6 +16,9 @@
 	.combo-arrow{
 		height: 20px !important;
 	}
+	#selectPrj tr,#selectPrj td:nth(1){
+		width: 100%;
+	}
 	td{
 		padding: 5px;
 	}
@@ -29,7 +32,7 @@
 		<c:choose>
 			<c:when
 				test="${fn:contains(sessionInfo.resourceList, '/projectArchives/add')}">
-				<a onclick="viewFun('add');" href="javascript:void(0);"
+				<a onclick="selectPrj();" href="javascript:void(0);"
 					class="easyui-linkbutton"
 					data-options="plain:true,iconCls:'icon_toolbar_add'">添加 </a>
 			</c:when>
@@ -109,6 +112,18 @@
 				<td><input style="width: 100px" type="text" id="contactName"></td>
 			</tr>
 		</table>
+	</div>
+	
+	<div id="selectPrj" class="easyui-dialog" title="拉取项目" data-options="iconCls:'icon-save',resizable:true,modal:true" style="width:1000px;height:600px;padding:10px">
+		<table>
+			<tr>
+				<th>项目名称(输入关键词后回车):</th>
+				<td>
+					<input class="easyui-textbox" onkeyup="loadKeywordsPrj(this)" style="width:100%;">
+				</td>
+			</tr>
+		</table>
+		<table id="selectedOne" data-options="fit:true,border:false"></table>
 	</div>
 	
 	<div id="sdlg" class="easyui-dialog" title="项目新增档案" data-options="iconCls:'icon-save'" style="width:400px;height:350px;padding:10px">

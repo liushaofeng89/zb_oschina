@@ -74,15 +74,20 @@ function approve(){
 function check() {
 	var ids = [];
 	var rows = $('#dataGrid').datagrid('getSelections');
+	if(rows.length<=0){
+		$.messager.alert('警告！', '请至少勾选一个请假！', 'info');
+		return ;
+	}
 	for ( var i = 0; i < rows.length; i++) {
 		ids.push(rows[i].id);
 	}
-	$.messager.confirm("财务确认提示", "您确定这些请假吗？", function (data) {
-        if (data) {
-        	$.ajax({
+	
+	$.messager.prompt('财务确认提示', '请录入请假应扣工资：', function(data){
+		if (data){
+			$.ajax({
         		type : "POST",
         		url : "check",
-        		data : "ids=" + JSON.stringify(ids),
+        		data : "ids=" + JSON.stringify(ids)+"&money="+data,
         		success : function(result) {
         			var data = eval('(' + result + ')');
         			if (data.success) {
@@ -93,8 +98,8 @@ function check() {
         			}
         		}
         	});
-        }
-    });
+		}
+	});
 }
 
 /**
@@ -155,11 +160,11 @@ function clearForm() {
 
 function dosearch(){
 	var sName = $("#sName").val().trim();
-	var sStartTime = $("#sStartTime").datebox('getValue').trim();
-	var sEndTime = $("#sEndTime").datebox('getValue').trim();
+	var sStartTime = $("#sStartTime").val().trim();
+	var sEndTime = $("#sEndTime").val().trim();
 	
-	if(sName==""||sStartTime==""||sEndTime==""){
-		alert("查询条件不能为空！");
+	if(sName==""&&sStartTime==""&&sEndTime==""){
+		alert("查询条件不能同时为空！");
 		return;
 	}
 	
@@ -248,6 +253,11 @@ function dosearch(){
 			field : 'financer'
 		}, {
 			width : '130',
+			title : '应扣工资(元)',
+			align : 'center',
+			field : 'costMoney'
+		}, {
+			width : '130',
 			title : '创建时间',
 			sortable : true,
 			align : 'center',
@@ -255,10 +265,6 @@ function dosearch(){
 		} ] ],
 		toolbar : '#toolbar'
 	});
-}
-
-function csearch(){
-	$('#sdlg').dialog('open');
 }
 
 $(document).ready(function() {
@@ -340,6 +346,11 @@ $(document).ready(function() {
 			field : 'financer'
 		}, {
 			width : '130',
+			title : '应扣工资(元)',
+			align : 'center',
+			field : 'costMoney'
+		}, {
+			width : '130',
 			title : '创建时间',
 			sortable : true,
 			align : 'center',
@@ -349,6 +360,4 @@ $(document).ready(function() {
 	});
 
 	$('#dlg').dialog('close');
-	$('#check').dialog('close');
-	$('#sdlg').dialog('close');
 });

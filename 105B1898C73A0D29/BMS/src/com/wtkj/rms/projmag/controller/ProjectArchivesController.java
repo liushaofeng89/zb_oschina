@@ -2,8 +2,8 @@ package com.wtkj.rms.projmag.controller;
 
 import java.io.File;
 import java.io.IOException;
-import java.math.BigInteger;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
@@ -17,14 +17,15 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.ModelAndView;
 
 import com.wtkj.common.Grid;
 import com.wtkj.common.Json;
 import com.wtkj.common.PageFilter;
 import com.wtkj.common.controller.BaseController;
 import com.wtkj.rms.project.model.ProjectArchiesInfoModel;
+import com.wtkj.rms.project.model.ProjectBid;
 import com.wtkj.rms.project.service.ProjectArchiesInfoService;
+import com.wtkj.rms.project.service.ProjectBidServiceI;
 import com.wtkj.rms.projmag.model.PrjArchievesUploadModel;
 import com.wtkj.rms.projmag.model.ProjectArchives;
 import com.wtkj.rms.projmag.service.ProjectArchivesServiceI;
@@ -37,6 +38,8 @@ public class ProjectArchivesController extends BaseController {
 	private ProjectArchivesServiceI projectArchivesService;
 	@Autowired
 	private ProjectArchiesInfoService prjArchiesInfoService;
+	@Autowired
+	private ProjectBidServiceI projectBidService;
 
 	@RequestMapping("/manager")
 	public String manager(HttpServletRequest request) {
@@ -129,6 +132,49 @@ public class ProjectArchivesController extends BaseController {
 	@ResponseBody
 	public ProjectArchives get(Long id) {
 		return projectArchivesService.get(id);
+	}
+
+	/**
+	 * 加载所有已经中标的项目数据
+	 * 
+	 * @return 所有中标项目数据
+	 */
+	@RequestMapping("/loadFilteredPrjs")
+	@ResponseBody
+	public List<ProjectBid> loadFilteredPrjs(String filter) {
+		// 处理统计信息
+		List<ProjectBid> filterList = new ArrayList<ProjectBid>();
+
+		List<ProjectBid> find = projectBidService.find(null);
+		for (ProjectBid projectBid : find) {
+			if (projectBid.getProjectName().contains(filter.trim())) {
+				filterList.add(projectBid);
+			}
+		}
+		return filterList;
+	}
+
+	@RequestMapping("/selectedPrjs")
+	@ResponseBody
+	public Json selectedPrjs(String ids, HttpServletRequest request) {
+		Json j = new Json();
+		if (!"[]".equals(ids)) {
+			String[] idList = getIds(ids);
+			for (String id : idList) {
+				ProjectBid prjBid = projectBidService.find(new ProjectBid(Long.parseLong(id))).get(0);
+				projectArchivesService.add(new ProjectArchives(prjBid), request);
+			}
+		}
+		j.setSuccess(true);
+		j.setMsg("更新数据库成功！");
+		return j;
+	}
+
+	private String[] getIds(String ids) {
+		if (null != ids && !ids.trim().isEmpty()) {
+			return ids.substring(1, ids.length() - 1).split(",");
+		}
+		return new String[0];
 	}
 
 	@RequestMapping("/viewPage")
