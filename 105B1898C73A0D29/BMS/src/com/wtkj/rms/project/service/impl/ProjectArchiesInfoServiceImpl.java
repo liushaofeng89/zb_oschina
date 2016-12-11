@@ -33,4 +33,9 @@ public class ProjectArchiesInfoServiceImpl implements ProjectArchiesInfoService 
 		archievesInfoDao.saveOrUpdate(model);
 	}
 
+	@Override
+	public void updateArchieves(ProjectArchiesInfoModel model) {
+		archievesInfoDao.update(model);
+	}
+
 }

@@ -1,13 +1,17 @@
 package com.wtkj.rms.projmag.controller;
 
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
-import java.text.SimpleDateFormat;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.log4j.Logger;
@@ -78,36 +82,46 @@ public class ProjectArchivesController extends BaseController {
 
 	@RequestMapping("/addPrjArchieves")
 	public String addPrjArchieves(PrjArchievesUploadModel uploadModel, HttpServletRequest req) {
-		Calendar instance = Calendar.getInstance();
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmsss");
 
-		String scanningFileNo = "";
 		String scanningFilePath = "";
 		if (!uploadModel.getArchieveScanning().isEmpty()) {
-			scanningFileNo = sdf.format(instance.getTime());
-			scanningFilePath = saveFile(req, uploadModel.getPrjId(), "scanning", scanningFileNo,
-					uploadModel.getArchieveScanning());
+			scanningFilePath = saveFile(req, uploadModel.getPrjId(), uploadModel.getArchieveScanning());
 		}
 
-		prjArchiesInfoService.saveByArchieves(new ProjectArchiesInfoModel(Integer.parseInt(uploadModel.getPrjId()),
-				uploadModel.getArchieveType(), scanningFilePath, uploadModel.getArchieveOriginalNo(), uploadModel
-						.getArchieveOriginalPath(), uploadModel.getArchieveCopyNo(), uploadModel.getArchieveCopyPath(),
-				uploadModel.getNote()));
+		List<ProjectArchiesInfoModel> findById = prjArchiesInfoService.findById(uploadModel.getPrjId());
+		ProjectArchiesInfoModel projectArchiesInfoModel = new ProjectArchiesInfoModel(Integer.parseInt(uploadModel
+				.getPrjId()), uploadModel.getArchieveType(), scanningFilePath, uploadModel.getArchieveOriginalNo(),
+				uploadModel.getArchieveOriginalPath(), uploadModel.getArchieveCopyNo(),
+				uploadModel.getArchieveCopyPath(), uploadModel.getNote());
+
+		int id = query(findById, uploadModel);
+		if (-1 != id) {
+			projectArchiesInfoModel.setId(id);
+			prjArchiesInfoService.updateArchieves(projectArchiesInfoModel);
+		} else {
+			prjArchiesInfoService.saveByArchieves(projectArchiesInfoModel);
+		}
 		return "/basic/project/projectArchives";
 	}
 
-	private String saveFile(HttpServletRequest request, String prjId, String fileType, String scanningFileNo,
-			MultipartFile myfile) {
+	private int query(List<ProjectArchiesInfoModel> findById, PrjArchievesUploadModel uploadModel) {
+		for (ProjectArchiesInfoModel model : findById) {
+			if (model.getArchivesType() == uploadModel.getArchieveType()) {
+				return model.getId();
+			}
+		}
+		return -1;
+	}
+
+	private String saveFile(HttpServletRequest request, String prjId, MultipartFile myfile) {
 		try {
 			String fileName = myfile.getOriginalFilename();
-			String ext = fileName.substring(fileName.lastIndexOf("."));
-			String saveFileName = scanningFileNo + ext;
-			String realPath = request.getSession().getServletContext()
-					.getRealPath("/WEB-INF/upload/" + prjId + "/" + fileType + "/");
+			String realPath = request.getSession().getServletContext().getRealPath("/WEB-INF/upload/" + prjId + "/");
 			// 这里不必处理IO流关闭的问题，因为FileUtils.copyInputStreamToFile()方法内部会自动把用到的IO流关掉
-			FileUtils.copyInputStreamToFile(myfile.getInputStream(), new File(realPath, saveFileName));
-			Logger.getLogger(this.getClass()).info("create file at:" + realPath + saveFileName);
-			return realPath + saveFileName;
+			FileUtils.copyInputStreamToFile(myfile.getInputStream(), new File(realPath, fileName));
+			Logger.getLogger(this.getClass()).info("create file at:" + realPath + fileName);
+			return request.getSession().getServletContext().getRealPath("/WEB-INF/upload/" + prjId + "/")
+					+ File.separator + fileName;
 		} catch (IOException e) {
 			e.printStackTrace();
 			return "";
@@ -166,6 +180,31 @@ public class ProjectArchivesController extends BaseController {
 			return ids.substring(1, ids.length() - 1).split(",");
 		}
 		return new String[0];
+	}
+
+	@RequestMapping("/download")
+	public void download(HttpServletResponse response, String path) throws IOException {
+		try {
+			String newPath = new String(path.getBytes("iso-8859-1"), "UTF-8");
+			InputStream fis = new BufferedInputStream(new FileInputStream(newPath));
+			byte[] buffer = new byte[fis.available()];
+			fis.read(buffer);
+			fis.close();
+			response.setHeader("Content-Disposition", "attachment; filename=\"" + resolveFileName(path) + "\"");
+			response.setContentType("application/octet-stream;charset=UTF-8");
+			OutputStream toClient = new BufferedOutputStream(response.getOutputStream());
+			toClient.write(buffer);
+			toClient.flush();
+			toClient.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+	}
+
+	private String resolveFileName(String path) {
+		int beginIndex = path.lastIndexOf(File.separator);
+		return path.substring(beginIndex);
 	}
 
 	@RequestMapping("/viewPage")

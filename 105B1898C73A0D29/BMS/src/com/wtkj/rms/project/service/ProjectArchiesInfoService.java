@@ -29,4 +29,10 @@ public interface ProjectArchiesInfoService {
 	 *            待添加的项目资料模型数据
 	 */
 	void saveByArchieves(ProjectArchiesInfoModel model);
+
+	/**
+	 * 更新资料
+	 * @param projectArchiesInfoModel
+	 */
+	void updateArchieves(ProjectArchiesInfoModel projectArchiesInfoModel);
 }

@@ -31,11 +31,7 @@ $(function() {
 					width : '40',
 					rowspan:2,
 					formatter : function(val, row, index) {
-						if(isEmpty(val)){
-							return index + 1;
-						}else{
-							return val;
-						}
+						return index + 1;
 					}
 				},{
 					title : '名称',
@@ -72,7 +68,6 @@ $(function() {
 				}, 
 				{
 					title : '<font color="red">电子版或扫描件</font>',
-					colspan : 2,
 					align : 'center'
 				}, 
 				{
@@ -93,17 +88,11 @@ $(function() {
 					
 				} ] , [ {
 					width : 200,
-					title : '上传',
-					align : 'center',
-					field : 'archivesScanningPath',
-					sum : false
-				}, {
-					width : 200,
 					title : '下载',
 					align : 'center',
 					field : 'archivesScanningPath',
 					formatter : function(value,row,index){
-						return index + 1;
+						return "<a href='download?path="+value+"'>点击下载</a>";
 					}
 				}, {
 					width : 110,
@@ -210,11 +199,6 @@ $(function() {
 	});
 
 });
-
-function formatDownload(value,row,index){
-	var href = 'get_details.php?userid='+row.id;
-	return '<a target="_blank" href="' + href + '">View Detail</a>';
-}
 
 function selectPrj(){
 	var param = {"filter" :""};

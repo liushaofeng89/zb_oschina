@@ -159,7 +159,7 @@
 				<tr>
 					<td style="text-align: right">原件:</td>
 					<td style="text-align: left">
-						<input class="easyui-textbox easyui-tooltip" title="原件存放位置" id="archieveOriginalNo" name="archieveOriginalNo">
+						<input class="easyui-textbox easyui-tooltip" title="原件编号" id="archieveOriginalNo" name="archieveOriginalNo">
 					</td>
 					<td style="text-align: left">
 						<input class="easyui-textbox easyui-tooltip" title="原件存放位置" id="archieveOriginalPath" name="archieveOriginalPath">
