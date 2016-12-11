@@ -114,7 +114,7 @@
 		</table>
 	</div>
 	
-	<div id="selectPrj" class="easyui-dialog" title="拉取项目" data-options="iconCls:'icon-save',resizable:true,modal:true" style="width:1000px;height:600px;padding:10px">
+	<div id="selectPrj" class="easyui-dialog" title="拉取项目" data-options="iconCls:'icon-save',resizable:true,modal:true" style="width:800px;height:600px;padding:10px">
 		<table>
 			<tr>
 				<th>项目名称(输入关键词后回车):</th>
@@ -126,16 +126,16 @@
 		<table id="selectedOne" data-options="fit:true,border:false"></table>
 	</div>
 	
-	<div id="sdlg" class="easyui-dialog" title="项目新增档案" data-options="iconCls:'icon-save'" style="width:400px;height:350px;padding:10px">
+	<div id="sdlg" class="easyui-dialog" title="项目新增档案" data-options="iconCls:'icon-save'" style="width:500px;height:350px;padding:10px">
 		<form action="addPrjArchieves" method="post" enctype="multipart/form-data">
 			<table>
 				<tr>
 					<td style="text-align: right">项目名称:<input type="hidden" id="prjId" name="prjId"/> </td>
-					<td style="text-align: left" id="prjName"></td>
+					<td style="text-align: left" id="prjName" colspan="2"></td>
 				</tr>
 				<tr>
 					<td style="text-align: right">文档类型:</td>
-					<td style="text-align: left">
+					<td style="text-align: left" colspan="2">
 						<select class="easyui-combobox" id="archieveType" name="archieveType" >
 							<option value="1">招标文件</option>
 							<option value="2">投标文件</option>
@@ -152,30 +152,36 @@
 				</tr>
 				<tr>
 					<td style="text-align: right">电子版或扫描件:</td>
-					<td style="text-align: left">
+					<td style="text-align: left" colspan="2">
 						<input type="file" class="easyui-filebox" id="archieveScanning" name="archieveScanning">
 					</td>
 				</tr>
 				<tr>
 					<td style="text-align: right">原件:</td>
 					<td style="text-align: left">
-						<input type="file" class="easyui-filebox" id="archieveOriginal" name="archieveOriginal">
+						<input class="easyui-textbox easyui-tooltip" title="原件存放位置" id="archieveOriginalNo" name="archieveOriginalNo">
+					</td>
+					<td style="text-align: left">
+						<input class="easyui-textbox easyui-tooltip" title="原件存放位置" id="archieveOriginalPath" name="archieveOriginalPath">
 					</td>
 				</tr>
 				<tr>
 					<td style="text-align: right">复印件:</td>
 					<td style="text-align: left">
-						<input type="file" class="easyui-filebox" id="archieveCopy" name="archieveCopy">
+						<input class="easyui-textbox easyui-tooltip" title="复印件编号" id="archieveCopyNo" name="archieveCopyNo">
+					</td>
+					<td style="text-align: left">
+						<input class="easyui-textbox easyui-tooltip" title="复印件存放位置" id="archieveCopyPath" name="archieveCopyPath">
 					</td>
 				</tr>
 				<tr>
 					<td style="text-align: right">备注:</td>
-					<td style="text-align: left">
+					<td style="text-align: left" colspan="2">
 						<textarea id="note" name="note" style="height:60px;width:100%"></textarea>
 					</td>
 				</tr>
 				<tr>
-					<td colspan="2" style="text-align: center;">
+					<td colspan="3" style="text-align: center;">
 						<button type="submit">确认添加</button>
 					</td>
 				</tr>

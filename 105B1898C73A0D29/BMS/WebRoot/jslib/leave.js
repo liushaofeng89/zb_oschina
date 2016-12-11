@@ -82,7 +82,9 @@ function check() {
 		ids.push(rows[i].id);
 	}
 	
-	$.messager.prompt('财务确认提示', '请录入请假应扣工资：', function(data){
+	var offDays = computeOffDays(rows[0].startTime, rows[0].endTime);
+	
+	$.messager.prompt('员工基本工资/当月天数*(请假结束日期-开始)', rows[0].userName+'请假'+offDays+'天应扣工资：', function(data){
 		if (data){
 			$.ajax({
         		type : "POST",
@@ -100,6 +102,12 @@ function check() {
         	});
 		}
 	});
+}
+
+function computeOffDays(startDate, endDate){
+	var date3=new Date(endDate).getTime()-new Date(startDate).getTime()  //时间差的毫秒数  
+	//计算出相差天数  
+	return Math.floor(date3/(24*3600*1000))  
 }
 
 /**
@@ -180,7 +188,7 @@ function dosearch(){
 		striped : true,
 		pagination : true,
 		nowrap : true,
-		singleSelect : false,
+		singleSelect : true,
 		pageSize : getDefaultPageSize(),
 		pageList : [ 10, 20, 30, 40, 50, 100, 200, 300, 400, 500 ],
 		columns : [ [ {
@@ -273,7 +281,7 @@ $(document).ready(function() {
 		striped : true,
 		pagination : true,
 		nowrap : true,
-		singleSelect : false,
+		singleSelect : true,
 		pageSize : getDefaultPageSize(),
 		pageList : [ 10, 20, 30, 40, 50, 100, 200, 300, 400, 500 ],
 		columns : [ [ {

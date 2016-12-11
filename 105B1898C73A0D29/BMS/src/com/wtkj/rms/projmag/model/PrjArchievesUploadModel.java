@@ -17,9 +17,11 @@ public class PrjArchievesUploadModel {
 	// 电子档或扫描件
 	private MultipartFile archieveScanning;
 	// 原件
-	private MultipartFile archieveOriginal;
+	private String archieveOriginalNo;
+	private String archieveOriginalPath;
 	// 复印件
-	private MultipartFile archieveCopy;
+	private String archieveCopyNo;
+	private String archieveCopyPath;
 	// 备注
 	private String note;
 
@@ -47,20 +49,36 @@ public class PrjArchievesUploadModel {
 		this.archieveScanning = archieveScanning;
 	}
 
-	public MultipartFile getArchieveOriginal() {
-		return archieveOriginal;
+	public String getArchieveOriginalNo() {
+		return archieveOriginalNo;
 	}
 
-	public void setArchieveOriginal(MultipartFile archieveOriginal) {
-		this.archieveOriginal = archieveOriginal;
+	public void setArchieveOriginalNo(String archieveOriginalNo) {
+		this.archieveOriginalNo = archieveOriginalNo;
 	}
 
-	public MultipartFile getArchieveCopy() {
-		return archieveCopy;
+	public String getArchieveOriginalPath() {
+		return archieveOriginalPath;
 	}
 
-	public void setArchieveCopy(MultipartFile archieveCopy) {
-		this.archieveCopy = archieveCopy;
+	public void setArchieveOriginalPath(String archieveOriginalPath) {
+		this.archieveOriginalPath = archieveOriginalPath;
+	}
+
+	public String getArchieveCopyNo() {
+		return archieveCopyNo;
+	}
+
+	public void setArchieveCopyNo(String archieveCopyNo) {
+		this.archieveCopyNo = archieveCopyNo;
+	}
+
+	public String getArchieveCopyPath() {
+		return archieveCopyPath;
+	}
+
+	public void setArchieveCopyPath(String archieveCopyPath) {
+		this.archieveCopyPath = archieveCopyPath;
 	}
 
 	public String getNote() {

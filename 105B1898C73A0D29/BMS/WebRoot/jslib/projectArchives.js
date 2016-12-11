@@ -102,8 +102,8 @@ $(function() {
 					title : '下载',
 					align : 'center',
 					field : 'archivesScanningPath',
-					formatter : function(val, row, index) {
-						return "<a href='"+val+"'>点击下载</a>"
+					formatter : function(value,row,index){
+						return index + 1;
 					}
 				}, {
 					width : 110,
@@ -211,6 +211,11 @@ $(function() {
 
 });
 
+function formatDownload(value,row,index){
+	var href = 'get_details.php?userid='+row.id;
+	return '<a target="_blank" href="' + href + '">View Detail</a>';
+}
+
 function selectPrj(){
 	var param = {"filter" :""};
 	doLoad(param);
@@ -218,18 +223,23 @@ function selectPrj(){
 }
 
 function loadKeywordsPrj(obj){
-	var param = {"filter" :$(obj).val()};
-	doLoad(param);
+	if (event.keyCode==13)
+	{ 
+		var param = {"filter" :$(obj).val()};
+		doLoad(param);
+	} 
 }
 
 function doLoad(param){
 	$("#selectedOne").datagrid({
 		title:'中标项目',
-	    width:650,
-	    height:250,
+	    width:550,
+	    height:200,
 	    url:'loadFilteredPrjs',
 	    queryParams : param,
 	    singleSelect : true,
+	    pageSize : getDefaultPageSize(),
+		pageList : [ 10, 20, 30, 40, 50, 100, 200, 300, 400, 500 ],
 	    columns:[[
 	        {checkbox : true,	field : 'id',width : '30'},
 	        {field:'projectName',title:'项目名称',width:200},

@@ -89,24 +89,10 @@ public class ProjectArchivesController extends BaseController {
 					uploadModel.getArchieveScanning());
 		}
 
-		String originalFileNo = "";
-		String originalFilePath = "";
-		if (!uploadModel.getArchieveOriginal().isEmpty()) {
-			originalFileNo = sdf.format(instance.getTime());
-			originalFilePath = saveFile(req, uploadModel.getPrjId(), "original", originalFileNo,
-					uploadModel.getArchieveOriginal());
-		}
-
-		String copyFileNo = "";
-		String copyFilePath = "";
-		if (!uploadModel.getArchieveOriginal().isEmpty()) {
-			copyFileNo = sdf.format(instance.getTime());
-			copyFilePath = saveFile(req, uploadModel.getPrjId(), "copy", copyFileNo, uploadModel.getArchieveCopy());
-		}
-
 		prjArchiesInfoService.saveByArchieves(new ProjectArchiesInfoModel(Integer.parseInt(uploadModel.getPrjId()),
-				uploadModel.getArchieveType(), scanningFilePath, originalFileNo, originalFilePath, copyFileNo,
-				copyFilePath, uploadModel.getNote()));
+				uploadModel.getArchieveType(), scanningFilePath, uploadModel.getArchieveOriginalNo(), uploadModel
+						.getArchieveOriginalPath(), uploadModel.getArchieveCopyNo(), uploadModel.getArchieveCopyPath(),
+				uploadModel.getNote()));
 		return "/basic/project/projectArchives";
 	}
 
@@ -160,9 +146,14 @@ public class ProjectArchivesController extends BaseController {
 		Json j = new Json();
 		if (!"[]".equals(ids)) {
 			String[] idList = getIds(ids);
+			List<ProjectBid> findAll = projectBidService.findAll();
 			for (String id : idList) {
-				ProjectBid prjBid = projectBidService.find(new ProjectBid(Long.parseLong(id))).get(0);
-				projectArchivesService.add(new ProjectArchives(prjBid), request);
+				for (ProjectBid prjBid : findAll) {
+					if (id.equals(String.valueOf(prjBid.getId()))) {
+						projectArchivesService.add(new ProjectArchives(prjBid), request);
+						continue;
+					}
+				}
 			}
 		}
 		j.setSuccess(true);
