@@ -80,6 +80,18 @@ public class ProjectArchivesController extends BaseController {
 		return grid;
 	}
 
+	@RequestMapping("/remove")
+	@ResponseBody
+	public Json remove(String id) {
+		Json j = new Json();
+		if (null != id && !id.isEmpty()) {
+			prjArchiesInfoService.remove(id);
+		}
+		j.setSuccess(true);
+		j.setMsg("更新数据库成功！");
+		return j;
+	}
+
 	@RequestMapping("/addPrjArchieves")
 	public String addPrjArchieves(PrjArchievesUploadModel uploadModel, HttpServletRequest req) {
 
@@ -88,29 +100,13 @@ public class ProjectArchivesController extends BaseController {
 			scanningFilePath = saveFile(req, uploadModel.getPrjId(), uploadModel.getArchieveScanning());
 		}
 
-		List<ProjectArchiesInfoModel> findById = prjArchiesInfoService.findById(uploadModel.getPrjId());
 		ProjectArchiesInfoModel projectArchiesInfoModel = new ProjectArchiesInfoModel(Integer.parseInt(uploadModel
 				.getPrjId()), uploadModel.getArchieveType(), scanningFilePath, uploadModel.getArchieveOriginalNo(),
 				uploadModel.getArchieveOriginalPath(), uploadModel.getArchieveCopyNo(),
 				uploadModel.getArchieveCopyPath(), uploadModel.getNote());
 
-		int id = query(findById, uploadModel);
-		if (-1 != id) {
-			projectArchiesInfoModel.setId(id);
-			prjArchiesInfoService.updateArchieves(projectArchiesInfoModel);
-		} else {
-			prjArchiesInfoService.saveByArchieves(projectArchiesInfoModel);
-		}
+		prjArchiesInfoService.saveByArchieves(projectArchiesInfoModel);
 		return "/basic/project/projectArchives";
-	}
-
-	private int query(List<ProjectArchiesInfoModel> findById, PrjArchievesUploadModel uploadModel) {
-		for (ProjectArchiesInfoModel model : findById) {
-			if (model.getArchivesType() == uploadModel.getArchieveType()) {
-				return model.getId();
-			}
-		}
-		return -1;
 	}
 
 	private String saveFile(HttpServletRequest request, String prjId, MultipartFile myfile) {

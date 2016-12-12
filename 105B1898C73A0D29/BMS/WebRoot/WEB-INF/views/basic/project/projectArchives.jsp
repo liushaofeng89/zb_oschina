@@ -114,16 +114,15 @@
 		</table>
 	</div>
 	
-	<div id="selectPrj" class="easyui-dialog" title="拉取项目" data-options="iconCls:'icon-save',resizable:true,modal:true" style="width:800px;height:600px;padding:10px">
-		<table>
-			<tr>
-				<th>项目名称(输入关键词后回车):</th>
-				<td>
-					<input class="easyui-textbox" onkeyup="loadKeywordsPrj(this)" style="width:100%;">
-				</td>
-			</tr>
-		</table>
+	<div id="selectPrj" class="easyui-dialog" title="拉取项目" data-options="iconCls:'icon-save',resizable:true,modal:true" style="width:600px;height:300px;">
 		<table id="selectedOne" data-options="fit:true,border:false"></table>
+		<div id="tb" style="padding:5px;height:auto">
+			<div style="margin-bottom:5px">
+				<a onclick="selectedPrjs()" class="easyui-linkbutton" iconCls="icon_toolbar_add" plain="true">添加勾选的项目</a>
+				<input id="searchKeyWords" class="easyui-textbox" style="width:130px">
+				<a class="easyui-linkbutton" iconCls="icon_toolbar_search" onclick="loadKeywordsPrj()" plain="true">搜索</a>
+			</div>
+		</div>
 	</div>
 	
 	<div id="sdlg" class="easyui-dialog" title="项目新增档案" data-options="iconCls:'icon-save'" style="width:500px;height:350px;padding:10px">

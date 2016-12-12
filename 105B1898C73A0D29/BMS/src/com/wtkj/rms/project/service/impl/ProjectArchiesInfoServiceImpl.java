@@ -38,4 +38,9 @@ public class ProjectArchiesInfoServiceImpl implements ProjectArchiesInfoService 
 		archievesInfoDao.update(model);
 	}
 
+	@Override
+	public void remove(String id) {
+		archievesInfoDao.executeHql("delete ProjectArchiesInfoModel p where p.id=" + id);
+	}
+
 }

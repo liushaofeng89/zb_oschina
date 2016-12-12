@@ -35,4 +35,10 @@ public interface ProjectArchiesInfoService {
 	 * @param projectArchiesInfoModel
 	 */
 	void updateArchieves(ProjectArchiesInfoModel projectArchiesInfoModel);
+
+	/**
+	 * 通过ID删除
+	 * @param id 待删除的文档ID
+	 */
+	void remove(String id);
 }

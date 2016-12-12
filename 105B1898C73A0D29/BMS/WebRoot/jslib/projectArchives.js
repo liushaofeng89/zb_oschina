@@ -24,16 +24,7 @@ $(function() {
 	            loadMsg:'', 
 	            height:'auto', 
 	            showFooter : true,
-	            columns : [ [ {
-					title : '序号',
-					field : 'id',
-					align : 'center',
-					width : '40',
-					rowspan:2,
-					formatter : function(val, row, index) {
-						return index + 1;
-					}
-				},{
+	            columns : [ [{
 					title : '名称',
 					field : 'archivesType',
 					align : 'center',
@@ -65,9 +56,9 @@ $(function() {
 							}
 						}
 					}
-				}, 
-				{
-					title : '<font color="red">电子版或扫描件</font>',
+				}, {
+					title : '操作',
+					colspan : 2,
 					align : 'center'
 				}, 
 				{
@@ -85,14 +76,21 @@ $(function() {
 					title : '备注',
 					align : 'center',
 					field : 'archivesNote'
-					
 				} ] , [ {
-					width : 200,
+					width : 100,
 					title : '下载',
 					align : 'center',
 					field : 'archivesScanningPath',
 					formatter : function(value,row,index){
 						return "<a href='download?path="+value+"'>点击下载</a>";
+					}
+				},{
+					width : 100,
+					title : '删除',
+					align : 'center',
+					field : 'id',
+					formatter : function(value,row,index){
+						return "<a href='javascript:void(0)' onclick='removeArchieves("+value+")'>删除档案</a>";
 					}
 				}, {
 					width : 110,
@@ -119,7 +117,7 @@ $(function() {
 					align : 'center',
 					field : 'archivesCopyPath',
 					sum : false
-				} ] ],
+				}] ],
 	            onResize:function(){ 
 	                $('#dataGrid').datagrid('fixDetailRowHeight',index); 
 	            }, 
@@ -200,25 +198,57 @@ $(function() {
 
 });
 
+function removeArchieves(id){
+	$.ajax({
+		type : "POST",
+		url : "remove",
+		data : "id=" + id,
+		success : function(result) {
+			var data = eval('(' + result + ')');
+			if (data.success) {
+				$.messager.alert('删除档案成功！', data.msg, 'info');
+				$("#dataGrid").datagrid("reload") 
+			} else {
+				$.messager.alert('删除档案失败！', data.msg, 'error');
+			}
+		}
+	});
+}
+
 function selectPrj(){
-	var param = {"filter" :""};
+	var param = {"filter" :"test"};
 	doLoad(param);
 	$('#selectPrj').dialog('open');
 }
 
 function loadKeywordsPrj(obj){
-	if (event.keyCode==13)
-	{ 
-		var param = {"filter" :$(obj).val()};
-		doLoad(param);
-	} 
+	var param = {"filter" :$("#searchKeyWords").val()};
+	doLoad(param);
+}
+
+function selectedPrjs(){
+	var ids = [];
+	var rows = $('#selectedOne').datagrid('getSelected');
+	ids.push(rows.id);
+	$.ajax({
+		type : "POST",
+		url : "selectedPrjs",
+		data : "ids=" + JSON.stringify(ids),
+		success : function(result) {
+			var data = eval('(' + result + ')');
+			if (data.success) {
+				$.messager.alert('拉取项目成功！', data.msg, 'info');
+				$('#selectPrj').dialog('close');
+				$("#dataGrid").datagrid("reload") 
+			} else {
+				$.messager.alert('拉取项目失败！', data.msg, 'error');
+			}
+		}
+	});
 }
 
 function doLoad(param){
-	$("#selectedOne").datagrid({
-		title:'中标项目',
-	    width:550,
-	    height:200,
+	 $("#selectedOne").datagrid({
 	    url:'loadFilteredPrjs',
 	    queryParams : param,
 	    singleSelect : true,
@@ -240,32 +270,7 @@ function doLoad(param){
 	        {field:'headmanIdCard',title:'身份证号',width:60},
 	        {field:'remark',title:'备注',width:60},
 	    ]],
-
-	    toolbar:[{
-	        text:'添加勾选的项目',
-	        iconCls:'icon_toolbar_add',
-	        handler:function(){
-	        	var ids = [];
-	        	var rows = $('#selectedOne').datagrid('getSelected');
-	        	ids.push(rows.id);
-	        	$.ajax({
-            		type : "POST",
-            		url : "selectedPrjs",
-            		data : "ids=" + JSON.stringify(ids),
-            		success : function(result) {
-            			var data = eval('(' + result + ')');
-            			if (data.success) {
-            				$.messager.alert('拉取项目成功！', data.msg, 'info');
-            				$('#selectPrj').dialog('close');
-            				$("#dataGrid").datagrid("reload") 
-            			} else {
-            				$.messager.alert('拉取项目失败！', data.msg, 'error');
-            			}
-            		}
-            	});
-	        }
-	    }]
-
+	    toolbar:'#tb'
 	});
 }
 
