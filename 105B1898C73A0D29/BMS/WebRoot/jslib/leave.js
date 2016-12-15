@@ -4,6 +4,8 @@ var id = -1;
 var createTime = "";
 var limitTime = "";
 var leaveType = -1;
+var startTime=null;
+var endTime=null;
 
 /**
  * 添加请假
@@ -12,6 +14,8 @@ function addLeave() {
 	id = -1;
 	createTime = "";
 	limitTime = "";
+	startTime=new Date();
+	endTime=new Date();
 
 	$("#startTime").datetimebox("setValue", "");
 	$("#endTime").datetimebox("setValue", "");
@@ -37,6 +41,23 @@ function editLeave() {
 		$("#leaveType").combobox("setValue", row.leaveType);
 	}
 	$('#dlg').dialog('open');
+}
+
+
+function onSelectStart(date){
+	console.log(date);
+	startTime=date;
+	if(startTime!=null&&endTime!=null){
+		$("#leaveDays").textbox("setValue", Math.floor((endTime-startTime)/(24*3600*1000)) +"天");
+	}
+}
+
+function onSelectEnd(date){
+	console.log(date);
+	endTime=date;
+	if(startTime!=null&&endTime!=null){
+		$("#leaveDays").textbox("setValue", Math.floor((endTime-startTime)/(24*3600*1000)) +"天");
+	}
 }
 
 /**

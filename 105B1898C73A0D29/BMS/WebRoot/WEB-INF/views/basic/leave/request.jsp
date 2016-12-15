@@ -55,16 +55,16 @@
 			
 	</div>
 	
-	<div id="dlg" class="easyui-dialog" title="请假申请" data-options="iconCls:'icon-save'" style="width:600px;height:350px;padding:10px">
+	<div id="dlg" class="easyui-dialog" title="请假申请" data-options="iconCls:'icon-save'" style="width:450px;height:355px;padding:10px">
 		<form id="ff" >
 		    <div style="margin-bottom:20px">
 				<input class="easyui-textbox" id="userName" name="userName" style="width:100%;" data-options="label:'请假人:',required:true" value="${sessionInfo.name}">
 			</div>
 		    <div style="margin-bottom:20px">
-				<input class="easyui-datetimebox" id="startTime" name="startTime" style="width:100%;" data-options="label:'开始时间:',required:true">
+				<input class="easyui-datetimebox" id="startTime" name="startTime" style="width:100%;" data-options="label:'开始时间:',required:true,onSelect:onSelectStart">
 		    </div>
 		    <div style="margin-bottom:20px">
-				<input class="easyui-datetimebox" id="endTime" name="endTime" style="width:100%" data-options="label:'结束时间:',required:true" />
+				<input class="easyui-datetimebox" id="endTime" name="endTime" style="width:100%" data-options="label:'结束时间:',required:true,onSelect:onSelectEnd" />
 		    </div>
 		    <div style="margin-bottom:20px">
 		    	<select class="easyui-combobox" id="leaveType" name="leaveType" style="width:100%;" data-options="label:'请假种类:'">
@@ -77,6 +77,9 @@
 		    </div>
 		    <div style="margin-bottom:20px">
 				<input class="easyui-datetimebox" id="limitTime" name="limitTime" style="width:100%" data-options="label:'规定时间:'" />
+		    </div>
+		    <div style="margin-bottom:20px">
+				<input class="easyui-textbox" id="leaveDays" style="width:100%" data-options="label:'请假天数:'" readonly="readonly"/>
 		    </div>
 		</form>
 		<div style="text-align:center;padding:5px 0">
